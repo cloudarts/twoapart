@@ -1,0 +1,6 @@
+<TextureAtlas imagePath='atlas.png'>
+  <SubTexture name='tile_01' x='0' y='0' width='60.0' height='60.0'/>
+  <SubTexture name='tile_02' x='61' y='0' width='60.0' height='60.0'/>
+  <SubTexture name='tile_03' x='0' y='61' width='60.0' height='60.0'/>
+  <SubTexture name='tile_04' x='61' y='61' width='60.0' height='60.0'/>
+</TextureAtlas>
