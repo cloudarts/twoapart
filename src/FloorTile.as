@@ -9,7 +9,7 @@ package
 	 */
 	public class FloorTile extends Entity 
 	{		
-		private const var floorTexNames : Array = ["tile_01" , "tile_02", "tile_03", "tile_04"];
+		private var floorTexNames : Array = ["tile_01" , "tile_02", "tile_03", "tile_04"];
 		
 		private var floorImage : Image;
 		
@@ -17,7 +17,7 @@ package
 		{
 			super();
 			
-			var texIndex : int = Math.random() * floorTextures.length;		
+			var texIndex : int = Math.random() * floorTexNames.length;		
 			floorImage = new Image( Game.textureAtlas.getTexture(floorTexNames[texIndex]) );
 		}
 		

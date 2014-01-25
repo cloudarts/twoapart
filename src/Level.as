@@ -7,6 +7,8 @@ package  {
 	 */
 	public class Level {
 		
+		
+		
 		public const TILE_STATIC_FLOOR:int 		= 0;
 		public const TILE_STATIC_WALL:int		= 1;
 		public const TILE_STATIC_HOLE:int		= 2;
@@ -28,9 +30,9 @@ package  {
 		 */ 
 		public var entities:Vector.<Entity> = null;
 		
+		
 		public function Level() {
-			//TODO DEBUG
-			tiles.push(new FloorTile());
+		
 		}
 		
 		public function draw(renderTexture : RenderTexture) : void {
@@ -46,8 +48,13 @@ package  {
 		public function initialize(levelStr:String) : void {
 			tiles = new Vector.<Entity>();
 			entities = new Vector.<Entity>();
+			
+			var lines:Array = levelStr.split(/\n/);
+			var i:int = 0; 
+						
+			//TODO DEBUG
+			tiles.push(new FloorTile());
 		}
-		
 		
 	}
 
