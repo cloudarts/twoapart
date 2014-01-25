@@ -45,7 +45,7 @@ package  {
 			textureAtlas = new TextureAtlas(texture, xml);
 			
 			//Init render Texture and Image
-			renderTexture = new RenderTexture(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
+			renderTexture = new RenderTexture(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT, true);
 			renderImage = new Image(renderTexture);
 			//... and add it to our game :)
 			this.addChild(renderImage);
@@ -75,7 +75,7 @@ package  {
 				var delta:Number = deltaMillis / 1000.0;
 				
 				// update game logic
-				
+				currentLevel.update(delta);
 				
 				_currentGameTimeMillis += deltaMillis;
 				millisToGoThisFrame -= deltaMillis;
@@ -85,7 +85,9 @@ package  {
 		}
 		
 		public function draw() : void {
-			currentLevel.draw(renderTexture);
+			renderTexture.drawBundled(function() : void {
+				currentLevel.draw(renderTexture);
+			});
 		}
 	}
 

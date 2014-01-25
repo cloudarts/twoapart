@@ -42,6 +42,13 @@ package  {
 			}
 		}
 		
+		public function update( delta : Number) : void {
+			//Update tiles
+			for (var i:int = 0; i < tiles.length; i++) {
+				tiles[i].update(delta);
+			}			
+		}
+		
 		/**
 		 * parse level definition file into tile array and script variables
 		 */
@@ -53,7 +60,15 @@ package  {
 			var i:int = 0; 
 						
 			//TODO DEBUG
-			tiles.push(new FloorTile());
+			for (var x : int = 0; x < 20; x++) {
+				for (var y:int = 0; y < 12; y++) {
+					var tile : FloorTile = new FloorTile();
+					tile.x = x;
+					tile.y = y;
+					
+					tiles.push(tile);
+				}
+			}
 		}
 		
 	}
