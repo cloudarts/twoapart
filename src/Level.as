@@ -59,7 +59,11 @@ package  {
 			//Update tiles
 			for (var i:int = 0; i < tiles.length; i++) {
 				tiles[i].update(delta);
-			}			
+			}
+			//Update entities
+			for (var i:int = 0; i < entities.length; i++) {
+				entities[i].update(delta);
+			}
 		}
 		
 		/**
