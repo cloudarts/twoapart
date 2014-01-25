@@ -98,45 +98,34 @@ package  {
 					switch(line.charAt(j)) {
 						case TILE_STATIC_FLOOR_STRING:
 							entity = new TileFloor();
-							entity.x = j;
-							entity.y = i - 3;
 							break;
 						
 						case TILE_STATIC_CRUMBLE_STRING:
 							entity = new TileCrumble();
-							entity.x = j;
-							entity.y = i - 3;
 							break;
 						
 						case TILE_STATIC_WALL_STRING:
 							entity = new TileWall();
-							entity.x = j;
-							entity.y = i - 3;
 							break;
 						
 						case TILE_STATIC_HOLE_STRING:
 							entity = new TileHole();
-							entity.x = j;
-							entity.y = i - 3;
 							break;
 						
 						case TILE_STATIC_NARROW_VERTICAL_STRING:
 							entity = new TileNarrowVertical();
-							entity.x = j;
-							entity.y = i - 3;
 							break;
 							
 						case TILE_STATIC_NARROW_HORIZONTAL_STRING:
 							entity = new TileNarrowHorizontal();
-							entity.x = j;
-							entity.y = i - 3;
 							break;
 							
 						default:
 							trace("Token unrecognized");
 							break;
 					}
-					if(entity != null){
+					if (entity != null) {
+						entity.setTile(j, i - 3);
 						tiles.push(entity);
 					}
 				}
@@ -151,8 +140,6 @@ package  {
 					case ENTITY_P2:
 						if(tokens.length == 3){
 							entity = new EntityPlayer();
-							entity.x = Number(tokens[1]);
-							entity.y = Number(tokens[2]);
 						} else {
 							trace(ERROR_MSG_WRONG_COUNT);
 						}
@@ -160,8 +147,6 @@ package  {
 					case ENTITY_JITTERY:
 						if (tokens.length == 3) {
 							entity = new EntityJittery();
-							entity.x = Number(tokens[1]);
-							entity.y = Number(tokens[2]);
 						} else {
 							trace(ERROR_MSG_WRONG_COUNT);
 						}
@@ -169,8 +154,6 @@ package  {
 					case ENTITY_SELF_CONFIDENT:
 						if (tokens.length == 3) {
 							entity = new EntitySelfConfident();
-							entity.x = Number(tokens[1]);
-							entity.y = Number(tokens[2]);
 						} else {
 							trace(ERROR_MSG_WRONG_COUNT);
 						}						
@@ -178,8 +161,6 @@ package  {
 					case ENTITY_ANGRY:
 						if (tokens.length == 3) {
 							entity = new EntityAngry();
-							entity.x = Number(tokens[1]);
-							entity.y = Number(tokens[2]);
 						} else {
 							trace(ERROR_MSG_WRONG_COUNT);
 						}						
@@ -187,8 +168,6 @@ package  {
 					case ENTITY_HAPPY:
 						if (tokens.length == 3) {
 							entity = new EntityHappy();
-							entity.x = Number(tokens[1]);
-							entity.y = Number(tokens[2]);
 						} else {
 							trace(ERROR_MSG_WRONG_COUNT);
 						}						
@@ -196,8 +175,6 @@ package  {
 					case ENTITY_CALM:
 						if (tokens.length == 3) {
 							entity = new EntityCalm();
-							entity.x = Number(tokens[1]);
-							entity.y = Number(tokens[2]);
 						} else {
 							trace(ERROR_MSG_WRONG_COUNT);
 						}						
@@ -205,8 +182,6 @@ package  {
 					case ENTITY_STONE:
 						if (tokens.length == 3) {
 							entity = new EntityStone();
-							entity.x = Number(tokens[1]);
-							entity.y = Number(tokens[2]);
 						} else {
 							trace(ERROR_MSG_WRONG_COUNT);
 						}						
@@ -221,8 +196,6 @@ package  {
 							}
 							
 							entity = new EntityMine(waypoints);
-							entity.x = Number(tokens[1]);
-							entity.y = Number(tokens[2]);
 														
 						} else {
 							trace(ERROR_MSG_WRONG_COUNT);
@@ -234,6 +207,7 @@ package  {
 				}
 					
 				if(entity != null){
+					entity.setTile(tokens[1], tokens[2]);
 					entities.push(entity);
 				}
 			}
