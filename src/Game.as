@@ -54,11 +54,14 @@ package  {
 			this.addChild(renderImage);
 			//and BG Image
 			bgImage = new Image( Game.textureAtlas.getTexture("background_stars"));
-						
+
+			//Init KeyboardController
+			KeyboardController.initalize();
+
 			
 			//Init intro
-				intro = new Intro();
-			
+			intro = new Intro();
+				
 			//Init Level
 			currentLevel = new Level();
 			currentLevel.initialize(txt.toString());
@@ -91,6 +94,7 @@ package  {
 			}
 			
 			_timeLastStepMillis = nowMillis;
+			
 		}
 		
 		public function draw() : void {

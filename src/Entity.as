@@ -64,6 +64,32 @@ package  {
 			targetTexture.draw(entityImage, world);
 		}
 		
+		public static function compareValues(a:Entity, b:Entity):int
+        {
+            if (a == null && b == null)
+                return 0;
+     
+            if (a == null)
+              return 1;
+     
+            if (b == null)
+               return -1;
+     
+            if (a.getPixelPos().y < b.getPixelPos().y)
+                return -1;
+     
+            if (a.getPixelPos().y > b.getPixelPos().y)
+                return 1;
+     
+			if (a.getPixelPos().x < b.getPixelPos().x)
+                return -1;
+     
+            if (a.getPixelPos().x > b.getPixelPos().x)
+                return 1;	
+				
+            return 0;
+        }
+		
 	}
 
 }
