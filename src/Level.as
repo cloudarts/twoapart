@@ -148,9 +148,15 @@ package  {
 				
 				switch(tokens[0]) {
 					case ENTITY_P1:
+						if(tokens.length == 3){
+							entity = new EntityPlayer( 0 );
+						} else {
+							trace(ERROR_MSG_WRONG_COUNT);
+						}
+						break;						
 					case ENTITY_P2:
 						if(tokens.length == 3){
-							entity = new EntityPlayer();
+							entity = new EntityPlayer( 1 );
 						} else {
 							trace(ERROR_MSG_WRONG_COUNT);
 						}

@@ -51,6 +51,9 @@ package  {
 			//and BG Image
 			bgImage = new Image( Game.textureAtlas.getTexture("background_stars"));
 						
+			//Init KeyboardController
+			KeyboardController.initalize();
+			
 			//Init Level
 			currentLevel = new Level();
 			currentLevel.initialize(txt.toString());
@@ -83,6 +86,7 @@ package  {
 			}
 			
 			_timeLastStepMillis = nowMillis;
+			
 		}
 		
 		public function draw() : void {
