@@ -29,14 +29,13 @@ package  {
 		private var renderTexture : RenderTexture;
 		private var renderImage : Image;
 		
+		private var bgImage : Image;
+		
 		private var currentLevel:Level;
 		private var _currentGameTimeMillis:Number = 0;
 		private var _timeLastStepMillis:Number = 0;
 		
 		public function Game() {
-			var textField:TextField = new TextField(400, 300, "Welcome to Starling!");
-			addChild(textField);	
-			textField.color = 0xffffff;
 			var txt:ByteArray = new LEVEL6() as ByteArray;
 			
 			// create texture atlas
@@ -49,7 +48,9 @@ package  {
 			renderImage = new Image(renderTexture);
 			//... and add it to our game :)
 			this.addChild(renderImage);
-			
+			//and BG Image
+			bgImage = new Image( Game.textureAtlas.getTexture("background_stars"));
+						
 			//Init Level
 			currentLevel = new Level();
 			currentLevel.initialize(txt.toString());
@@ -86,6 +87,7 @@ package  {
 		
 		public function draw() : void {
 			renderTexture.drawBundled(function() : void {
+				renderTexture.draw(bgImage);
 				currentLevel.draw(renderTexture);
 			});
 		}
