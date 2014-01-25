@@ -12,9 +12,6 @@ package
 	public class TileWall extends Entity
 	{
 		private var tileTexNames : Array = ["tile_01" , "tile_02", "tile_03", "tile_04"];
-		private var tileImage : Image
-		
-		private var world : Matrix;
 		
 		public function TileWall() 
 		{
@@ -22,25 +19,21 @@ package
 			
 			var texIndex : int = Math.random() * tileTexNames.length;		
 			
-			tileImage = new Image( Game.textureAtlas.getTexture(tileTexNames[texIndex]) );
-			tileImage.smoothing = TextureSmoothing.NONE;
+			entityImage = new Image( Game.textureAtlas.getTexture(tileTexNames[texIndex]) );
+			entityImage.smoothing = TextureSmoothing.NONE;
 			
-			world = new Matrix();
-			world.identity();			
+			offsetX = -Constants.TILE_SIDE_SIZE;
+			offsetY = -Constants.TILE_SIDE_SIZE;
 		}
 		
 		override public function draw(targetTexture:RenderTexture):void 
 		{
 			super.draw(targetTexture);
-			
-			world.createBox(1, 1, 0, this.x * Constants.TILE_TOP_SIZE - Constants.TILE_SIDE_SIZE, this.y * Constants.TILE_TOP_SIZE - Constants.TILE_SIDE_SIZE);
-			targetTexture.draw(tileImage, world);
 		}
 		
 		override public function update(delta:Number):void 
 		{
-			super.update(delta);
-			
+			super.update(delta);			
 		}
 		
 	}

@@ -11,31 +11,16 @@ package
 	public class EntityHappy extends Entity
 	{
 		private var entityTexName : String = "emotions_schokolade";
-		private var entityImage : Image;
-		
-		private var world : Matrix;
-		private var offsetX : Number = 0;
-		private var offsetY : Number = 0;
-		private var time : Number = 0;
 		
 		public function EntityHappy() 
 		{
 			entityImage = new Image( Game.textureAtlas.getTexture(entityTexName) );
 			entityImage.smoothing = TextureSmoothing.NONE;
-			
-			world = new Matrix();
-			world.identity();
 		}
 		
 		override public function draw(targetTexture:RenderTexture):void 
 		{
 			super.draw(targetTexture);
-			
-			world.createBox(1, 1, 0,
-				this.x * Constants.TILE_TOP_SIZE + offsetX, 
-				this.y * Constants.TILE_TOP_SIZE + offsetY);
-				
-			targetTexture.draw(entityImage, world);
 		}
 		
 		override public function update(delta:Number):void 

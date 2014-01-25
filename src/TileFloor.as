@@ -10,30 +10,21 @@ package
 	 */
 	public class TileFloor extends Entity
 	{
-		private var tileTexNames : Array = ["tile_01" , "tile_02", "tile_03", "tile_04"];
-		private var tileImage : Image
-		
-		private var world : Matrix;
+		private var entityTexNames : Array = ["tile_01" , "tile_02", "tile_03", "tile_04"];
 		
 		public function TileFloor() 
 		{
 			super();
 			
-			var texIndex : int = Math.random() * tileTexNames.length;		
+			var texIndex : int = Math.random() * entityTexNames.length;		
 			
-			tileImage = new Image( Game.textureAtlas.getTexture(tileTexNames[texIndex]) );
-			tileImage.smoothing = TextureSmoothing.NONE;
-			
-			world = new Matrix();
-			world.identity();
+			entityImage = new Image( Game.textureAtlas.getTexture(entityTexNames[texIndex]) );
+			entityImage.smoothing = TextureSmoothing.NONE;
 		}
 		
 		override public function draw(targetTexture:RenderTexture):void 
 		{
 			super.draw(targetTexture);
-			
-			world.createBox(1, 1, 0, this.x * Constants.TILE_TOP_SIZE, this.y * Constants.TILE_TOP_SIZE);
-			targetTexture.draw(tileImage, world);
 		}
 		
 		override public function update(delta:Number):void 
