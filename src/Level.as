@@ -11,6 +11,8 @@ package  {
 		public const TILE_STATIC_WALL_STRING:String = "#";
 		public const TILE_STATIC_HOLE_STRING:String = "_";
 		public const TILE_STATIC_CRUMBLE_STRING:String = "C";
+		public const TILE_STATIC_NARROW_VERTICAL_STRING:String = "N";
+		public const TILE_STATIC_NARROW_HORIZONTAL_STRING:String = "Z";
 		
 		public const ENTITY_P1:String = "p1";
 		public const ENTITY_P2:String = "p2";
@@ -118,6 +120,18 @@ package  {
 							entity.y = i - 3;
 							break;
 						
+						case TILE_STATIC_NARROW_VERTICAL_STRING:
+							entity = new TileNarrowVertical();
+							entity.x = j;
+							entity.y = i - 3;
+							break;
+							
+						case TILE_STATIC_NARROW_HORIZONTAL_STRING:
+							entity = new TileNarrowHorizontal();
+							entity.x = j;
+							entity.y = i - 3;
+							break;
+							
 						default:
 							trace("Token unrecognized");
 							break;
