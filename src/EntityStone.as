@@ -19,6 +19,9 @@ package
 		
 		override public function draw(targetTexture:RenderTexture):void 
 		{
+			offsetX = -Constants.TILE_SIDE_SIZE;
+			offsetY = -Constants.TILE_SIDE_SIZE;
+			
 			super.draw(targetTexture);
 		}
 		

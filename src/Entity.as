@@ -11,7 +11,7 @@ package  {
 	public class Entity extends Point {
 		
 		public const borderTop = Constants.TILE_SIDE_SIZE;
-		public const borderLeft = Constants.TILE_TOP_SIZE;
+		public const borderLeft = Constants.TILE_TOP_SIZE * 2;
 		
 		protected var entityImage : Image;
 		
