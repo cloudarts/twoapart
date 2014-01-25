@@ -9,7 +9,7 @@ package
 	 * @author ...
 	 */
 	public class EntityPlayer extends Entity
-	{
+	{	
 		private var _playerID : int;
 		private var _stateID : int; 
 		private var _directionID : int; 
@@ -17,6 +17,8 @@ package
 		
 		private var speed : Point;
 		private var acceleration : Point;
+		private var maxSpeed : Number = 10;
+		private var increaseAccl : Number = 5;
 		
 		private var texPlayerTag : Array = ["fire_", "water_"];
 		private var texStateTag : Array = ["normal_", "walk_"]
@@ -55,10 +57,20 @@ package
 		override public function update(delta:Number):void 
 		{
 			super.update(delta);
+			
+			handleMovement(delta);
 			/*time += delta;
 			offsetX = 5 * Math.sin(time);
 			offsetY = 5 * Math.cos(offsetX * time);*/
-		}	
+		}
+		
+		private function handleMovement(delta : Number) : void {
+			if ( KeyboardController.isPressed_Down(playerID) ) {
+				
+			}
+			
+			
+		}
 		
 		public function get playerID():int 
 		{

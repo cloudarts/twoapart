@@ -29,13 +29,18 @@ package
 		public static const P2_KEY_ACTION:uint 	= Keyboard.CONTROL;
 		
 		//Variable defines status of Player 1 keys
-		private var _p1KeyUpPressed, _p1KeyDownPressed, _p1KeyLeftPressed, _p1KeyRightPressed, _p1KeyActionPressed : Boolean = false;
+		private static var _p1KeyUpPressed, _p1KeyDownPressed, _p1KeyLeftPressed, _p1KeyRightPressed, _p1KeyActionPressed : Boolean = false;
 		
 		//Variable defines status of Player 2 keys
-		private var _p2KeyUpPressed, _p2KeyDownPressed, _p2KeyLeftPressed, _p2KeyRightPressed, _p2KeyActionPressed : Boolean = false;
+		private static var _p2KeyUpPressed, _p2KeyDownPressed, _p2KeyLeftPressed, _p2KeyRightPressed, _p2KeyActionPressed : Boolean = false;
 		
 		public function KeyboardController() 
 		{
+			Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
+			Starling.current.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
+		}
+		
+		public static function initalize() : void {
 			Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 			Starling.current.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
 		}
@@ -44,7 +49,7 @@ package
 		 *	Is called if a keyboard key is pressed down 
 		 * 	Sets the boolean on true if a used key is pressed
 		 */
-		public function onKeyDown(event:KeyboardEvent) : void {
+		public static function onKeyDown(event:KeyboardEvent) : void {
 			
 			switch(event.keyCode) {
 				case P1_KEY_UP:
@@ -89,7 +94,7 @@ package
 		 *	Is called if a keyboard key is released 
 		 * 	Sets the boolean on false if a used key is released
 		 */
-		public function onKeyUp(event:KeyboardEvent): void {
+		public static function onKeyUp(event:KeyboardEvent): void {
 			
 			switch(event.keyCode) {
 				case P1_KEY_UP:
@@ -129,45 +134,41 @@ package
 		}
 		
 		
-		public function isPressed_p1Up() : Boolean {
-			return _p1KeyUpPressed;
-		}
-		
-		public function isPressed_p1Down() : Boolean {
-			return _p1KeyDownPressed;
-		}
-		
-		public function isPressed_p1Left() : Boolean {
-			return _p1KeyLeftPressed;
-		}
-		
-		public function isPressed_p1Right() : Boolean {
-			return _p1KeyRightPressed;
-		}
-		
-		public function isPressed_p1Action() : Boolean {
-			return _p1KeyActionPressed;
-		}
-		
-		public function isPressed_p2Up() : Boolean {
+		public static function isPressed_Up(playerID : int) : Boolean {
+			if( playerID == 0 )
+				return _p1KeyUpPressed;
+			
 			return _p2KeyUpPressed;
 		}
 		
-		public function isPressed_p2Down() : Boolean {
+		public static function isPressed_Down(playerID : int) : Boolean {
+			if( playerID == 0 )
+				return _p1KeyDownPressed;
+				
 			return _p2KeyDownPressed;
 		}
 		
-		public function isPressed_p2Left() : Boolean {
+		public static function isPressed_Left(playerID : int) : Boolean {
+			if( playerID == 0 )
+				return _p1KeyLeftPressed;
+				
 			return _p2KeyLeftPressed;
 		}
 		
-		public function isPressed_p2Right() : Boolean {
+		public static function isPressed_Right(playerID : int) : Boolean {
+			if( playerID == 0 )
+				return _p1KeyRightPressed;
+			
 			return _p2KeyRightPressed;
 		}
 		
-		public function isPressed_p2Action() : Boolean {
+		public static function isPressed_Action(playerID : int) : Boolean {
+			if( playerID == 0 )
+				return _p1KeyActionPressed;
+				
 			return _p2KeyActionPressed;
 		}
+		
 	}
 
 }
