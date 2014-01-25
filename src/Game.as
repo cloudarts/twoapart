@@ -37,7 +37,6 @@ package  {
 		private var _timeLastStepMillis:Number = 0;
 		
 		private var intro : Intro;
-		private var _introActivated : Boolean = true;
 		
 		
 		public function Game() {
@@ -97,7 +96,7 @@ package  {
 		public function draw() : void {
 			renderTexture.drawBundled(function() : void {
 				renderTexture.draw(bgImage);
-				if (_introActivated) {
+				if (intro.isRunning) {
 					intro.draw(renderTexture);
 				} else {
 					currentLevel.draw(renderTexture);
