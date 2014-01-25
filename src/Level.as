@@ -87,18 +87,26 @@ package  {
 					switch(line.charAt(j)) {
 						case TILE_STATIC_FLOOR_STRING:
 							entity = new TileFloor();
+							entity.x = i;
+							entity.y = j;
 							break;
 						
 						case TILE_STATIC_CRUMBLE_STRING:
 							entity = new TileCrumble();
+							entity.x = i;
+							entity.y = j;
 							break;
 						
 						case TILE_STATIC_WALL_STRING:
 							entity = new TileWall();
+							entity.x = i;
+							entity.y = j;
 							break;
 						
 						case TILE_STATIC_HOLE_STRING:
 							entity = new TileHole();
+							entity.x = i;
+							entity.y = j;
 							break;
 						
 						default:
