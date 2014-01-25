@@ -1,13 +1,16 @@
 package  {
 	
 	
+	import starling.display.Image;
 	import flash.events.MouseEvent;
 	import flash.ui.Keyboard;
 	import flash.utils.ByteArray;
 	import starling.display.Sprite;
 	import starling.events.EnterFrameEvent;
-	import starling.events.KeyboardEvent;
 	import starling.text.TextField;
+	import starling.textures.RenderTexture;
+	import starling.textures.Texture;
+	import starling.textures.TextureAtlas;
 	
 	/**
 	 * ...
@@ -16,7 +19,16 @@ package  {
 	public class Game extends Sprite {
 		
 		[Embed(source="../levels/level6.txt",mimeType="application/octet-stream")] public var LEVEL6:Class;
-						
+		// Embed the Atlas XML
+		[Embed(source="../assets/atlas.xml", mimeType="application/octet-stream")] public static const AtlasXml:Class;
+		// Embed the Atlas Texture:
+		[Embed(source="../assets/atlas.png")] public static const AtlasTexture:Class;
+		
+		public static var textureAtlas:TextureAtlas;
+		
+		private var renderTexture : RenderTexture;
+		private var renderImage : Image;
+		
 		private var currentLevel:Level;
 		private var _currentGameTimeMillis:Number = 0;
 		private var _timeLastStepMillis:Number = 0;
@@ -26,9 +38,23 @@ package  {
 			addChild(textField);	
 			textField.color = 0xffffff;
 			var txt:ByteArray = new LEVEL6() as ByteArray;
+			
+			// create texture atlas
+			var texture : Texture = Texture.fromBitmap(new AtlasTexture());
+			var xml:XML = XML(new AtlasXml());
+			textureAtlas = new TextureAtlas(texture, xml);
+			
+			//Init render Texture and Image
+			renderTexture = new RenderTexture(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT, true);
+			renderImage = new Image(renderTexture);
+			//... and add it to our game :)
+			this.addChild(renderImage);
+			
+			//Init Level
 			currentLevel = new Level();
 			currentLevel.initialize(txt.toString());
 			
+			_timeLastStepMillis = new Date().getTime();
 			this.addEventListener(EnterFrameEvent.ENTER_FRAME, onEnterFrame);
 		}
 		
@@ -49,7 +75,7 @@ package  {
 				var delta:Number = deltaMillis / 1000.0;
 				
 				// update game logic
-				
+				currentLevel.update(delta);
 				
 				_currentGameTimeMillis += deltaMillis;
 				millisToGoThisFrame -= deltaMillis;
@@ -59,11 +85,10 @@ package  {
 		}
 		
 		public function draw() : void {
-			// draw stuff
+			renderTexture.drawBundled(function() : void {
+				currentLevel.draw(renderTexture);
+			});
 		}
-		
-		
-		
 	}
 
 }

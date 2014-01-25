@@ -28,7 +28,7 @@ package {
             _starling.stage.stageHeight = Constants.SCREEN_HEIGHT;
             _starling.simulateMultitouch  = false;
             _starling.enableErrorChecking = Capabilities.isDebugger;
-			Starling.current.showStats = false;
+			Starling.current.showStats = true;
             
             _starling.start();
             

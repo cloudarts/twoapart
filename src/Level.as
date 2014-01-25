@@ -1,5 +1,6 @@
 package  {
 	import flash.geom.Point;
+	import starling.textures.RenderTexture;
 	/**
 	 * ...
 	 * @author W. A. Jurczyk
@@ -42,7 +43,21 @@ package  {
 		
 		
 		public function Level() {
-			
+		
+		}
+		
+		public function draw(renderTexture : RenderTexture) : void {
+			//Draw our level :)
+			for (var i:int = 0; i < tiles.length; i++) {
+				tiles[i].draw(renderTexture);
+			}
+		}
+		
+		public function update( delta : Number) : void {
+			//Update tiles
+			for (var i:int = 0; i < tiles.length; i++) {
+				tiles[i].update(delta);
+			}			
 		}
 		
 		/**
@@ -54,6 +69,7 @@ package  {
 			
 			var lines:Array = levelStr.split(this.LINE_SEPARATOR); 
 			parse(lines);
+
 		}
 		
 		private function parse(lines:Array) : void {
