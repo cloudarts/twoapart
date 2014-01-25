@@ -8,5 +8,5 @@ obj/
 
 # Other files and folders
 .settings/
-TwoApart.as3proj
+*.as3proj
 
