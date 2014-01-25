@@ -53,6 +53,10 @@ package  {
 			for (var i:int = 0; i < tiles.length; i++) {
 				tiles[i].draw(renderTexture);
 			}
+			//Draw entities
+			for (var i:int = 0; i < entities.length; i++) {
+				entities[i].draw(renderTexture);
+			}
 		}
 		
 		public function update( delta : Number) : void {
@@ -93,25 +97,25 @@ package  {
 						case TILE_STATIC_FLOOR_STRING:
 							entity = new TileFloor();
 							entity.x = j;
-							entity.y = i;
+							entity.y = i - 3;
 							break;
 						
 						case TILE_STATIC_CRUMBLE_STRING:
 							entity = new TileCrumble();
 							entity.x = j;
-							entity.y = i;
+							entity.y = i - 3;
 							break;
 						
 						case TILE_STATIC_WALL_STRING:
 							entity = new TileWall();
 							entity.x = j;
-							entity.y = i;
+							entity.y = i - 3;
 							break;
 						
 						case TILE_STATIC_HOLE_STRING:
 							entity = new TileHole();
 							entity.x = j;
-							entity.y = i;
+							entity.y = i - 3;
 							break;
 						
 						default:
