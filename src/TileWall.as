@@ -24,11 +24,7 @@ package
 		}
 		
 		override public function draw(targetTexture:RenderTexture):void 
-		{
-			offsetX = 0;
-			offsetY = 0;
-			super.draw(targetTexture);
-			
+		{			
 			offsetX = -Constants.TILE_SIDE_SIZE;
 			offsetY = -Constants.TILE_SIDE_SIZE;
 			super.draw(targetTexture);

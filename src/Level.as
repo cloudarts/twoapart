@@ -51,13 +51,17 @@ package  {
 		}
 		
 		public function draw(renderTexture : RenderTexture) : void {
+
+			entities = entities.sort(Entity.compareValues);
+			
 			//Draw our level :)
 			for (var i:int = 0; i < tiles.length; i++) {
 				tiles[i].draw(renderTexture);
 			}
-			//Draw entities
-			for (var i:int = 0; i < entities.length; i++) {
-				entities[i].draw(renderTexture);
+			
+			for (var j:int = 0; j < entities.length; j++) 
+			{
+				entities[j].draw(renderTexture);
 			}
 		}
 		
@@ -126,7 +130,14 @@ package  {
 					}
 					if (entity != null) {
 						entity.setTile(j, i - 3);
-						tiles.push(entity);
+						if (entity instanceof TileWall || entity instanceof TileNarrowHorizontal || entity instanceof TileNarrowVertical) {
+							entities.push(entity);
+							var wall : Entity = new TileFloor();
+							wall.setTile(j, i - 3);
+							tiles.push(wall);
+						} else {
+							tiles.push(entity);
+						}
 					}
 				}
 			}
