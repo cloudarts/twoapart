@@ -11,6 +11,7 @@ package  {
 	import starling.textures.RenderTexture;
 	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
+
 	
 	/**
 	 * ...
@@ -35,6 +36,10 @@ package  {
 		private var _currentGameTimeMillis:Number = 0;
 		private var _timeLastStepMillis:Number = 0;
 		
+		private var intro : Intro;
+		private var _introActivated : Boolean = true;
+		
+		
 		public function Game() {
 			var txt:ByteArray = new LEVEL6() as ByteArray;
 			
@@ -51,6 +56,10 @@ package  {
 			//and BG Image
 			bgImage = new Image( Game.textureAtlas.getTexture("background_stars"));
 						
+			
+			//Init intro
+				intro = new Intro();
+			
 			//Init Level
 			currentLevel = new Level();
 			currentLevel.initialize(txt.toString());
@@ -88,7 +97,11 @@ package  {
 		public function draw() : void {
 			renderTexture.drawBundled(function() : void {
 				renderTexture.draw(bgImage);
-				currentLevel.draw(renderTexture);
+				if (_introActivated) {
+					intro.draw(renderTexture);
+				} else {
+					currentLevel.draw(renderTexture);
+				}
 			});
 		}
 	}
