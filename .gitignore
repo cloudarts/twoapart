@@ -8,5 +8,7 @@ obj/
 
 # Other files and folders
 .settings/
+
 *.as3proj
+
 
