@@ -1,25 +1,52 @@
 package  {
 	
 	
-	import flash.events.MouseEvent;
-	import flash.ui.Keyboard;
+	import starling.display.Image;
 	import starling.display.Sprite;
 	import starling.events.EnterFrameEvent;
-	import starling.events.KeyboardEvent;
 	import starling.text.TextField;
+	import starling.textures.RenderTexture;
+	import starling.textures.Texture;
+	import starling.textures.TextureAtlas;
 	
 	/**
 	 * ...
 	 * @author W. A. Jurczyk
 	 */
 	public class Game extends Sprite {
-						
+		
+		// Embed the Atlas XML
+		[Embed(source="../assets/atlas.xml", mimeType="application/octet-stream")]
+		public static const AtlasXml:Class;
+		// Embed the Atlas Texture:
+		[Embed(source="../assets/atlas.png")]
+		public static const AtlasTexture:Class;
+		
+		public static var textureAtlas:TextureAtlas;
+		
+		private var renderTexture : RenderTexture;
+		private var renderImage : Image;
+		
 		private var currentLevel:Level;
 		
 		public function Game() {
 			var textField:TextField = new TextField(400, 300, "Welcome to Starling!");
 			addChild(textField);	
 			textField.color = 0xffffff;
+			
+			// create texture atlas
+			var texture : Texture = Texture.fromBitmap(new AtlasTexture());
+			var xml:XML = XML(new AtlasXml());
+			textureAtlas = new TextureAtlas(texture, xml);
+			
+			//Init render Texture and Image
+			renderTexture = new RenderTexture(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
+			renderImage = new Image(renderTexture);
+			//... and add it to our game :)
+			this.addChild(renderImage);
+			
+			//TODO !
+			currentLevel = new Level();
 			
 			this.addEventListener(EnterFrameEvent, onEnterFrame);
 		}

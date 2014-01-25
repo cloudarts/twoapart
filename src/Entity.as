@@ -1,6 +1,6 @@
 package  {
 	import flash.geom.Point;
-	import starling.textures.Texture;
+	import starling.textures.RenderTexture;
 	
 	/**
 	 * ...
@@ -18,7 +18,7 @@ package  {
 			
 		}
 		
-		public function draw(targetTexture:Texture) : void {
+		public function draw(targetTexture : RenderTexture) : void {
 			
 		}
 		

@@ -1,5 +1,6 @@
 package  {
 	import flash.geom.Point;
+	import starling.textures.RenderTexture;
 	/**
 	 * ...
 	 * @author W. A. Jurczyk
@@ -28,7 +29,15 @@ package  {
 		public var entities:Vector.<Entity> = null;
 		
 		public function Level() {
-			
+			//TODO DEBUG
+			tiles.push(new FloorTile());
+		}
+		
+		public function draw(renderTexture : RenderTexture) : void {
+			//Draw our level :)
+			for (var i:int = 0; i < tiles.length; i++) {
+				tiles[i].draw(renderTexture);
+			}
 		}
 		
 		/**
