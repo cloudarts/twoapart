@@ -1,5 +1,6 @@
 package  {
 	import flash.geom.Point;
+	import flash.geom.Rectangle;
 	import starling.textures.RenderTexture;
 	/**
 	 * ...
@@ -63,6 +64,11 @@ package  {
 			{
 				entities[j].draw(renderTexture);
 			}
+			for (var i:int = 0; i < entities.length; i++)
+			{
+				if (entities[i] instanceof TileWall)
+					entities[i].drawDebug(renderTexture);
+			}
 		}
 		
 		public function update( delta : Number) : void {
@@ -82,7 +88,6 @@ package  {
 		public function initialize(levelStr:String) : void {
 			tiles = new Vector.<Entity>();
 			entities = new Vector.<Entity>();
-			
 			var lines:Array = levelStr.split(this.LINE_SEPARATOR); 
 			parse(lines);
 			
@@ -223,5 +228,12 @@ package  {
 				}
 			}
 		}
+
+		public static function checkForCollision(e1 : Rectangle,  e2 : Rectangle) : Boolean{	
+			return e1.intersects(e2);
+			
+		}
+		
 	}
 }
+
