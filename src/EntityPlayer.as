@@ -29,8 +29,6 @@ package
 		
 		private var animationUpdate : Number = 0;
 		
-		private var level : Level;
-		
 		private var texPlayerTag : Array = ["fire_", "water_"];
 		private var texStateTag : Array = ["normal_", "walk_"]
 		private var texDirectionTag : Array = ["front_left", "back_left"];
@@ -58,10 +56,6 @@ package
 			return _emotionID;
 		}
 		
-		public function setLevel(level : Level) : void {
-			this.level = level;
-		}
-		
 		private function updatePlayerTex():void 
 		{
 			entityTexName = "" + texPlayerTag[_playerID] + texStateTag[_stateID] 
@@ -74,7 +68,7 @@ package
 		override public function draw(targetTexture:RenderTexture):void 
 		{
 			super.draw(targetTexture);
-			
+			this.drawDebug(targetTexture, 0x0000ff);
 		}
 		
 		override public function update(delta:Number):void 

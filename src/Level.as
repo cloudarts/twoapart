@@ -1,4 +1,5 @@
 package  {
+	import flash.display3D.textures.RectangleTexture;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import starling.textures.RenderTexture;
@@ -66,7 +67,11 @@ package  {
 			{
 				entities[j].draw(renderTexture);
 			}
-			
+			for (var i:int = 0; i < entities.length; i++)
+			{
+				if (entities[i] instanceof TileWall)
+					entities[i].drawDebug(renderTexture);
+			}
 			emotionManager.draw(renderTexture);
 		}
 		
@@ -93,6 +98,16 @@ package  {
 			
 			var a:int = 0;
 
+		}
+		
+		public function changeGrumbleToHole( tile:Point):void {
+			var hole :TileHole= new TileHole();
+			hole.setTile(tile.x, tile.y );
+			tiles[tile.x + tile.y * width] = hole;
+		}
+		
+		public function changeHoleToFloor(tile:Point ):void {
+			
 		}
 		
 		public function handleCollisions(player : EntityPlayer , moveVec : Point) : Point {
@@ -153,27 +168,35 @@ package  {
 							} else if (Constants.EMOTION_ANGRY) {
 								entities.splice(i, 1);
 							} else if (Constants.EMOTION_SELFCONFIDENT) {
+								 moveVec = checkBlockCollisions(entities[i].getOwnBoundingBox(), moveVec);
+								 var x:Number;
+								 var y:Number;
+								 x = entities[i].getPixelPos().x + moveVec.x;
+								 y = entities[i].getPixelPos().y + moveVec.y;
+								entities[i].setPixelPos(x,y);
 								//move block
 							}
 						} else if (entities[i] instanceof EntityMine) {
-							//Die
+							//Restart Level
 						} else if (entities[i] instanceof EntityAngry) {
 							emotionManager.push(Constants.EMOTION_ANGRY);
+							entities.splice(i, 1);
 						}else if (entities[i] instanceof EntityCalm) {
 							emotionManager.push(Constants.EMOTION_CALM);
+							entities.splice(i, 1);
 							
 						}else if (entities[i] instanceof EntitySelfConfident) {
 							emotionManager.push(Constants.EMOTION_SELFCONFIDENT);
-							
+							entities.splice(i, 1);
 						}else if (entities[i] instanceof EntityHappy) {
 							emotionManager.push(Constants.EMOTION_HAPPY);
-							
+							entities.splice(i, 1);
 						}else if (entities[i] instanceof EntityJittery) {
 							emotionManager.push(Constants.EMOTION_JITTERY);
-							
+							entities.splice(i, 1);
 						}else if (entities[i] instanceof EntitySad) {
 							emotionManager.push(Constants.EMOTION_SAD);
-							
+							entities.splice(i, 1);
 						}else if (entities[i] instanceof TileNarrowHorizontal) {
 							//handle different activities
 							if ((player as EntityPlayer).getEmotion() == Constants.EMOTION_SAD) {
@@ -230,6 +253,30 @@ package  {
 			return new Point( player.getPixelPos().x + moveVec.x, player.getPixelPos().y + moveVec.y);
 		}
 		
+		private function checkBlockCollisions(bb:Rectangle, moveVec:Point):Point {
+			var rectToTestDx:Rectangle = bb.clone();
+			rectToTestDx.x += moveVec.x;
+			var rectToTestDy:Rectangle = bb.clone();
+			rectToTestDy.y += moveVec.y;
+			for (var i: int = 0; i < tiles.length; i++)
+			{
+				var r: Rectangle = tiles[i].getOwnBoundingBox();
+				var hitX : Boolean = checkForCollision(rectToTestDx, r);
+				var hitY : Boolean = checkForCollision(rectToTestDy, r);
+				if (!(tiles[i] instanceof TileHole)) {
+					
+					if (hitX) {
+						moveVec.x = 0;
+					}
+					if (hitY) {
+						moveVec.y = 0;
+					}
+						
+				}
+			}
+			return moveVec;		
+		}
+		
 		//Parse the lines of textfile
 		private function parse(lines:Array) : void {
 			this.width = Number(lines[0]);
@@ -269,6 +316,7 @@ package  {
 							break;
 					}
 					if (entity != null) {
+						entity.setLevel(this);
 						entity.setTile(j, i - 3);
 						if (entity instanceof TileWall || entity instanceof TileNarrowHorizontal || entity instanceof TileNarrowVertical) {
 							entities.push(entity);
@@ -349,6 +397,7 @@ package  {
 						if (tokens.length == 3) {
 							entity = new EntitySad();
 						} else trace(ERROR_MSG_WRONG_COUNT);
+						break;
 					case ENTITY_MINE:
 						if (tokens.length > 4 && (tokens.length % 2 == 1)) {
 							var waypoints:Array = new Array();
@@ -369,7 +418,8 @@ package  {
 						break;
 				}
 					
-				if(entity != null){
+				if (entity != null) {
+					entity.setLevel(this);
 					entity.setTile(tokens[1], tokens[2]);
 					entities.push(entity);
 				}
