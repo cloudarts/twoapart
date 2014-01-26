@@ -50,6 +50,8 @@ package  {
 		private var levels : Vector.<ByteArray>  = new Vector.<ByteArray>;
 		private var currentLevelID : int = 0;
 		
+		private var restartIsPressed : Boolean = false;
+		
 		public function Game() {
 			
 			levels.push(new LEVEL1() as ByteArray, new LEVEL2() as ByteArray, new LEVEL3() as ByteArray,
@@ -139,6 +141,16 @@ package  {
 			}
 			
 			_timeLastStepMillis = nowMillis;
+			
+			//If reset key is pressed restart current level
+			if (KeyboardController.isPressed_Reset() && !restartIsPressed) {
+				restartIsPressed = true;
+			}
+			
+			if (!KeyboardController.isPressed_Reset() && restartIsPressed) {
+				restartIsPressed = false;
+				startCurrentLevel();
+			}
 			
 		}
 		
