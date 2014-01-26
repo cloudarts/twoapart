@@ -49,7 +49,12 @@ package  {
 		
 		public static function getPixelFromTile(x : int, y : int) : Point {
 			return new Point(Constants.TILE_TOP_SIZE * x , Constants.TILE_TOP_SIZE * y );
-	}
+		}
+		
+		public static function getTileFromPixel(x : Number, y : Number) : Point {
+			return new Point( x / Constants.TILE_TOP_SIZE, y / Constants.TILE_TOP_SIZE);
+		}
+		
 		public function setLevel(level:Level):void {
 			this.level = level;
 		}

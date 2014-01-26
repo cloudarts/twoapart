@@ -22,8 +22,8 @@ package
 		
 		private var speed : Point;
 		private var acceleration : Point;
-		private var maxSpeed : Number  = 100 ;
-		private var increaseAccl : Number = 500;
+		private var maxSpeed : Number  = 200 ;
+		private var increaseAccl : Number = 900;
 		private var friction : Number = 0.9;
 		private var isRight : Boolean = false;
 		

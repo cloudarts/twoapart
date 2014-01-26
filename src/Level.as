@@ -103,13 +103,19 @@ package  {
 		}
 		
 		public function changeGrumbleToHole( tile:Point):void {
-			var hole :TileHole= new TileHole();
+			var hole :TileHole = new TileHole();
+			hole.setLevel(this);
 			hole.setTile(tile.x, tile.y );
 			tiles[tile.x + tile.y * width] = hole;
 		}
 		
 		public function changeHoleToFloor(tile:Point ):void {
-			
+			var floor : TileFloor = new TileFloor();
+			floor.setLevel(this);
+			floor.setTile(tile.x, tile.y );
+			var ind : int = (tile.y * width)
+			ind += tile.x;
+			tiles[ind] = floor;			
 		}
 		
 		public function handleCollisions(player : EntityPlayer , moveVec : Point) : Point {
@@ -167,15 +173,25 @@ package  {
 							if (player.getEmotion() != Constants.EMOTION_ANGRY && player.getEmotion() != Constants.EMOTION_SELFCONFIDENT) {
 								if (hitX) moveVec.x = 0;
 								if (hitY) moveVec.y = 0;
-							} else if (Constants.EMOTION_ANGRY) {
+							} else if (player.getEmotion() == Constants.EMOTION_ANGRY) {
 								entities.splice(i, 1);
-							} else if (Constants.EMOTION_SELFCONFIDENT) {
+							} else if (player.getEmotion() == Constants.EMOTION_SELFCONFIDENT) {
 								 moveVec = checkBlockCollisions(entities[i].getOwnBoundingBox(), moveVec);
-								 var x:Number;
-								 var y:Number;
-								 x = entities[i].getPixelPos().x + moveVec.x;
-								 y = entities[i].getPixelPos().y + moveVec.y;
-								entities[i].setPixelPos(x,y);
+								 
+								 if (moveVec.length > 0) {
+									var x:Number;
+									var y:Number;
+									x = entities[i].getPixelPos().x + moveVec.x;
+									y = entities[i].getPixelPos().y + moveVec.y;
+									entities[i].setPixelPos(x, y);
+									
+									var tilePt : Point = entities[i].getTile();
+									var tileId : int = tilePt.y * this.width + tilePt.x;
+									if (tiles[tileId] instanceof TileHole) {
+										changeHoleToFloor(tiles[tileId].getTile());
+										entities.splice(i, 1);
+									}
+								 }
 								//move block
 							}
 						} else if (entities[i] instanceof EntityMine) {
@@ -265,15 +281,13 @@ package  {
 				var r: Rectangle = tiles[i].getOwnBoundingBox();
 				var hitX : Boolean = checkForCollision(rectToTestDx, r);
 				var hitY : Boolean = checkForCollision(rectToTestDy, r);
-				if (!(tiles[i] instanceof TileHole)) {
-					
+				if (!(tiles[i] instanceof TileHole ) && !(tiles[i] instanceof TileFloor ) && !(tiles[i] instanceof TileCrumble) ){
 					if (hitX) {
 						moveVec.x = 0;
 					}
 					if (hitY) {
 						moveVec.y = 0;
 					}
-						
 				}
 			}
 			return moveVec;		
