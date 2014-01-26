@@ -48,6 +48,12 @@ package  {
 		 */ 
 		public var entities:Vector.<Entity> = null;
 		
+		/**
+		 * convenience handles for player entities
+		 */
+		public var p1:EntityPlayer = null;
+		public var p2:EntityPlayer = null;
+		
 		
 		public function Level(game : Game) {
 			this.game = game;
@@ -373,6 +379,7 @@ package  {
 							entity = new EntityPlayer( 0 );
 							(entity as EntityPlayer).setLevel(this);
 							emotionManager.setPlayer((entity as EntityPlayer), 0);
+							p1 = entity as EntityPlayer;
 						} else {
 							trace(ERROR_MSG_WRONG_COUNT);
 						}
@@ -382,6 +389,7 @@ package  {
 							entity = new EntityPlayer( 1 );
 							(entity as EntityPlayer).setLevel(this);
 							emotionManager.setPlayer((entity as EntityPlayer), 1);
+							p2 = entity as EntityPlayer;
 						} else {
 							trace(ERROR_MSG_WRONG_COUNT);
 						}
