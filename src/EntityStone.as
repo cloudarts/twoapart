@@ -1,5 +1,6 @@
 package  
 {
+	import flash.geom.Point;
 	import starling.display.Image;
 	import starling.textures.RenderTexture;
 	import starling.textures.TextureSmoothing;
@@ -16,6 +17,8 @@ package
 			entityImage = new Image( Game.textureAtlas.getTexture(entityTexNames[0]) );
 			entityImage.smoothing = TextureSmoothing.NONE;
 		}
+		
+		
 		
 		override public function draw(targetTexture:RenderTexture):void 
 		{
