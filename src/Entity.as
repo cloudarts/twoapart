@@ -46,6 +46,10 @@ package  {
 			updateBoundingBox();
 		}
 		
+		public static function getPixelFromTile(x : int, y : int) : Point {
+			return new Point(Constants.TILE_TOP_SIZE * x , Constants.TILE_TOP_SIZE * y );
+		}
+		
 		public function setPixelPos(x : Number, y: Number) {
 			centerPixelPos = new Point(x, y);
 			centerTilePos.x = x / Constants.TILE_TOP_SIZE;
