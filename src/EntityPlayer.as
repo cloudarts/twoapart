@@ -294,5 +294,13 @@ package
 			_animationID = value;
 			updatePlayerTex();
 		}
+		
+		public function getPivotPoint() : Point {
+			var pivot:Point = new Point(centerPixelPos.x + Constants.PLAYER_BBOX_PIVOT_X + Constants.PLAYER_BBOX_NORMAL_W/2,
+				centerPixelPos.y + Constants.PLAYER_BBOX_PIVOT_Y);
+			
+				
+			return pivot;
+		}
 	}
 }

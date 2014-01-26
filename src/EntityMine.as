@@ -16,18 +16,31 @@ package
 		private var currentWaypoint:int = 0;
 		private var nextWaypoint:int = 1;
 		private var _numOfWaypoints:int = 0;
-		private var entityTexName : String = "tile_breakable_01";
+		private var entityTexName : Array = ["tile_spikes_01", "tile_spikes_02"];
+		private var texID : int = 0;
+		private var changeTex : Number = 0;
 		private var direction : Point;
 		
 		public function EntityMine( waypoints:Array = null )  
 		{
 			this._waypoints = waypoints;
 			this._numOfWaypoints = waypoints.length;
-			entityImage = new Image( Game.textureAtlas.getTexture(entityTexName) );
-			entityImage.smoothing = TextureSmoothing.NONE;
+			
+			updateTexture();
 			
 			setTile(_waypoints[0].x, _waypoints[1].y);
 			updateDirection();
+		}
+		
+		private function updateTexture () {
+			if (texID == 0 ) {
+				texID = 1;
+			} else {
+				texID = 0;
+			}
+			
+			entityImage = new Image( Game.textureAtlas.getTexture(entityTexName[texID]) );
+			entityImage.smoothing = TextureSmoothing.NONE;
 		}
 		
 		private function updateDirection():void {
@@ -53,6 +66,11 @@ package
 			var dx:Number = direction.x * delta * _speed;
 			var dy:Number = direction.y * delta * _speed;
 			
+			if (changeTex > 0.3) {
+				updateTexture();
+				changeTex = 0.0;
+			}
+			
 			centerPixelPos.x += dx;
 			centerPixelPos.y += dy;
 			updateBoundingBox();
@@ -66,6 +84,8 @@ package
 				
 				updateDirection();
 			}
+			
+			changeTex += delta;
 		}
 	}
 }
