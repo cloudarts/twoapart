@@ -17,8 +17,9 @@ package
 		
 		private var speed : Point;
 		private var acceleration : Point;
-		private var maxSpeed : Number = 10;
-		private var increaseAccl : Number = 5;
+		private var maxSpeed : Number  = 100 ;
+		private var increaseAccl : Number = 500;
+		private var friction : Number = 0.9;
 		
 		private var texPlayerTag : Array = ["fire_", "water_"];
 		private var texStateTag : Array = ["normal_", "walk_"]
@@ -65,11 +66,42 @@ package
 		}
 		
 		private function handleMovement(delta : Number) : void {
-			if ( KeyboardController.isPressed_Down(playerID) ) {
+			var down : int = 0;
+			var up : int = 0;
+			var left : int = 0;
+			var right : int = 0;
+			
+			if ( KeyboardController.isPressed_Down(playerID) ) 
+				down = 1;
+			if ( KeyboardController.isPressed_Left(playerID) )
+				left = 1;
+			if ( KeyboardController.isPressed_Right(playerID) )
+				right = 1;
+			if ( KeyboardController.isPressed_Up(playerID) )
+				up = 1;
 				
-			}
+			acceleration.x = (right - left) * increaseAccl;
+			acceleration.y = (down - up) * increaseAccl;
 			
+			trace("AXEL" + acceleration);
 			
+			speed.x += delta * acceleration.x;
+			speed.y += delta * acceleration.y;
+			
+			speed.x *= friction;
+			speed.y *= friction;
+			
+			speed.x = Math.min( speed.x, maxSpeed);
+			speed.y = Math.min( speed.y, maxSpeed);
+			speed.x = Math.max( speed.x, -1 * maxSpeed);
+			speed.y = Math.max( speed.y, -1 * maxSpeed);
+			
+			trace("Speed" + speed);
+			
+			centerPixelPos.x += speed.x * delta;
+			centerPixelPos.y += speed.y * delta;
+			
+			trace("PixelPos" + centerPixelPos);
 		}
 		
 		public function get playerID():int 
