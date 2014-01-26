@@ -18,6 +18,7 @@ package
 		private var _stateID : int; 
 		private var _directionID : int;
 		private var _animationID : int;
+		private var _emotionID : int;
 		
 		private var speed : Point;
 		private var acceleration : Point;
@@ -33,7 +34,8 @@ package
 		private var texPlayerTag : Array = ["fire_", "water_"];
 		private var texStateTag : Array = ["normal_", "walk_"]
 		private var texDirectionTag : Array = ["front_left", "back_left"];
-		private var texAnimation : Array = ["","_01", "_02"];
+		private var texAnimation : Array = ["", "_01", "_02"];
+		private var texEmotionTag : Array = ["", "_depri", "_ruhig", "_happy", "_hulk", "_selbstsicher"];
 		
 		private var entityTexName:String;
 		
@@ -43,6 +45,7 @@ package
 			_stateID = 0;
 			_directionID = 0;
 			_animationID = 0;
+			_emotionID = 0;
 			
 			updatePlayerTex();
 			
@@ -57,7 +60,7 @@ package
 		private function updatePlayerTex():void 
 		{
 			entityTexName = "" + texPlayerTag[_playerID] + texStateTag[_stateID] 
-				+ texDirectionTag[_directionID] + texAnimation[_animationID];
+				+ texDirectionTag[_directionID] + texAnimation[_animationID] + texEmotionTag[_emotionID];
 			
 			entityImage = new Image( Game.textureAtlas.getTexture(entityTexName) );
 			entityImage.smoothing = TextureSmoothing.NONE;
@@ -77,9 +80,6 @@ package
 			handleState();
 			handleDirection();
 			handleAnimation(delta);
-			/*time += delta;
-			offsetX = 5 * Math.sin(time);
-			offsetY = 5 * Math.cos(offsetX * time);*/
 		}
 		
 		private function handleState() : void {
@@ -186,6 +186,39 @@ package
 				centerPixelPos.x + Constants.PLAYER_BBOX_PIVOT_X - Constants.PLAYER_BBOX_NORMAL_W / 2.0,
 				centerPixelPos.y + Constants.PLAYER_BBOX_PIVOT_Y - Constants.PLAYER_BBOX_NORMAL_H,
 				Constants.PLAYER_BBOX_NORMAL_W, Constants.PLAYER_BBOX_NORMAL_H);
+		}
+		
+		public function useEmotion( emotion:int ) {
+			
+			switch(emotion) {
+				case Constants.EMOTION_NONE:
+					_emotionID = Constants.EMOTION_NONE;
+					maxSpeed = 100;
+					break;
+				case Constants.EMOTION_SAD:
+					_emotionID = Constants.EMOTION_SAD;
+					break;
+				case Constants.EMOTION_CALM:
+					_emotionID = Constants.EMOTION_CALM;
+					break;
+				case Constants.EMOTION_HAPPY:
+					_emotionID = Constants.EMOTION_HAPPY;
+					break;
+				case Constants.EMOTION_ANGRY:
+					_emotionID = Constants.EMOTION_ANGRY;
+					break;
+				case Constants.EMOTION_SELFCONFIDENT:
+					_emotionID = Constants.EMOTION_SELFCONFIDENT;
+					break;
+				case Constants.EMOTION_JITTERY:
+					_emotionID = Constants.EMOTION_NONE;
+					break;	
+				default:
+					trace("Error: Can not handle Emotion");
+					_emotionID = Constants.EMOTION_NONE;
+					break;
+			}
+			
 		}
 		
 		public function get playerID():int 
