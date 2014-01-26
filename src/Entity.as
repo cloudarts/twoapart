@@ -41,9 +41,7 @@ package  {
 			centerPixelPos.x = Constants.TILE_TOP_SIZE * centerTilePos.x;
 			centerPixelPos.y = Constants.TILE_TOP_SIZE * centerTilePos.y;
 			
-			//TODO check this
-			boundingBox = new Rectangle(centerPixelPos.x, centerPixelPos.y,
-												Constants.TILE_TOP_SIZE, Constants.TILE_TOP_SIZE);
+			updateBoundingBox();
 		}
 		
 		public function setPixelPos(x : Number, y: Number) {
@@ -51,7 +49,10 @@ package  {
 			centerTilePos.x = x / Constants.TILE_TOP_SIZE;
 			centerTilePos.y = y / Constants.TILE_TOP_SIZE;
 			
-			//TODO check this
+			updateBoundingBox();
+		}
+		
+		public function updateBoundingBox() {
 			boundingBox = new Rectangle(centerPixelPos.x, centerPixelPos.y,
 												Constants.TILE_TOP_SIZE, Constants.TILE_TOP_SIZE);
 		}
@@ -87,7 +88,7 @@ package  {
 		
 		public function drawDebug(targetTexture:RenderTexture, color:uint = 0xff0000)
 		{
-			var quad:Quad = new Quad(1, 1, 0xff0000);
+			var quad:Quad = new Quad(1, 1, color);
 			var matScale:Matrix = new Matrix();
 			var matTrans:Matrix = new Matrix();
 			matTrans.translate(boundingBox.x + borderLeft, boundingBox.y + borderTop);

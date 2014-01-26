@@ -96,13 +96,14 @@ package  {
 		}
 		
 		public function handleCollisions(player : EntityPlayer , moveVec : Point) : Point {
-			var tempP : Point = moveVec;
-			tempP.y = 0;			
-			var bbPx : Rectangle = player.getBoundingBox(player.getPixelPos() + tempP);
+			var tempP : Point = new Point(0,0);
+			tempP.x = player.getOwnBoundingBox().x + moveVec.x;			
+			tempP.y = player.getOwnBoundingBox().y;			
+			var bbPx : Rectangle = player.getBoundingBox(tempP);
 			
-			tempP = moveVec;
-			tempP.x = 0;
-			var bbPy : Rectangle = player.getBoundingBox(player.getPixelPos() + tempP);
+			tempP.x = player.getOwnBoundingBox().x;			
+			tempP.y = player.getOwnBoundingBox().y + moveVec.y;			
+			var bbPy : Rectangle = player.getBoundingBox(tempP);
 			
 			//Get all tiles and entities
 			var allTiles : Vector.<Entity> = tiles.concat(entities);
@@ -134,7 +135,7 @@ package  {
 				}
 			}
 			
-			return player.getPixelPos() + moveVec;
+			return new Point( player.getPixelPos().x + moveVec.x, player.getPixelPos().y + moveVec.y);
 		}
 		
 		//Parse the lines of textfile
@@ -197,6 +198,7 @@ package  {
 					case ENTITY_P1:
 						if(tokens.length == 3){
 							entity = new EntityPlayer( 0 );
+							(entity as EntityPlayer).setLevel(this);
 						} else {
 							trace(ERROR_MSG_WRONG_COUNT);
 						}
@@ -204,6 +206,7 @@ package  {
 					case ENTITY_P2:
 						if(tokens.length == 3){
 							entity = new EntityPlayer( 1 );
+							(entity as EntityPlayer).setLevel(this);
 						} else {
 							trace(ERROR_MSG_WRONG_COUNT);
 						}
