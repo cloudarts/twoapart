@@ -17,7 +17,7 @@ package
 		private var _playerID : int;
 		private var _stateID : int; 
 		private var _directionID : int;
-		private var _animationID : int;
+		private var _animationID : int = Constants.EMOTION_NONE;
 		private var _emotionID : int;
 		
 		private var speed : Point;
@@ -37,6 +37,7 @@ package
 		private var texAnimation : Array = ["", "_01", "_02"];
 		private var texEmotionTag : Array = ["", "_depri", "_ruhig", "_happy", "_hulk", "_selbstsicher"];
 		
+		
 		private var entityTexName:String;
 		
 		public function EntityPlayer( playerID : int ) 
@@ -45,12 +46,16 @@ package
 			_stateID = 0;
 			_directionID = 0;
 			_animationID = 0;
-			_emotionID = 0;
+			_emotionID = Constants.EMOTION_NONE;
 			
 			updatePlayerTex();
 			
 			speed = new Point( 0 , 0 ); // <-- Eule
 			acceleration = new Point( 0 , 0 );
+		}
+		
+		public function getEmotion():int {
+			return _emotionID;
 		}
 		
 		public function setLevel(level : Level) : void {
