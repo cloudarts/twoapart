@@ -99,6 +99,16 @@ package  {
 
 		}
 		
+		public function changeGrumbleToHole( tile:Point):void {
+			var hole :TileHole= new TileHole();
+			hole.setTile(tile.x, tile.y );
+			tiles[tile.x + tile.y * width] = hole;
+		}
+		
+		public function changeHoleToFloor(tile:Point ):void {
+			
+		}
+		
 		public function handleCollisions(player : EntityPlayer , moveVec : Point) : Point {
 			var tempP : Point = new Point(0,0);
 			tempP.x = player.getOwnBoundingBox().x + moveVec.x;			
@@ -160,7 +170,7 @@ package  {
 								//move block
 							}
 						} else if (entities[i] instanceof EntityMine) {
-							//Die
+							//Restart Level
 						} else if (entities[i] instanceof EntityAngry) {
 							emotionManager.push(Constants.EMOTION_ANGRY);
 						}else if (entities[i] instanceof EntityCalm) {
