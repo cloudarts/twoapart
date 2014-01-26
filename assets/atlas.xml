@@ -21,41 +21,41 @@
   <SubTexture name='tile_schmal_horizontal' x='822' y='782' width='60.0' height='60.0'/>
   <SubTexture name='tile_breakable-floor_04' x='822' y='843' width='60.0' height='60.0'/>
   <SubTexture name='water_normal_front_left_ruhig' x='270' y='875' width='48.0' height='48.0'/>
-  <SubTexture name='fire_walk_back_right_01' x='270' y='924' width='48.0' height='48.0'/>
-  <SubTexture name='fire_walk_back_right_01_depri' x='270' y='973' width='48.0' height='48.0'/>
-  <SubTexture name='fire_walk_back_right_01_happy' x='761' y='965' width='48.0' height='48.0'/>
-  <SubTexture name='fire_walk_back_right_01_hulk' x='822' y='904' width='48.0' height='48.0'/>
-  <SubTexture name='fire_walk_back_right_01_ruhig' x='822' y='953' width='48.0' height='48.0'/>
-  <SubTexture name='fire_walk_back_right_01_selbstsicher' x='883' y='721' width='48.0' height='48.0'/>
-  <SubTexture name='fire_walk_back_right_02' x='883' y='770' width='48.0' height='48.0'/>
-  <SubTexture name='fire_walk_back_right_02_depri' x='883' y='819' width='48.0' height='48.0'/>
-  <SubTexture name='fire_walk_back_right_02_happy' x='883' y='868' width='48.0' height='48.0'/>
-  <SubTexture name='fire_walk_back_right_02_hulk' x='883' y='917' width='48.0' height='48.0'/>
-  <SubTexture name='fire_walk_back_right_02_ruhig' x='883' y='966' width='48.0' height='48.0'/>
-  <SubTexture name='fire_walk_back_right_02_selbstsicher' x='932' y='721' width='48.0' height='48.0'/>
-  <SubTexture name='fire_walk_front_right_01' x='932' y='770' width='48.0' height='48.0'/>
-  <SubTexture name='fire_walk_front_right_01_depri' x='932' y='819' width='48.0' height='48.0'/>
-  <SubTexture name='fire_walk_front_right_01_happy' x='932' y='868' width='48.0' height='48.0'/>
-  <SubTexture name='fire_walk_front_right_01_hulk' x='932' y='917' width='48.0' height='48.0'/>
-  <SubTexture name='fire_walk_front_right_01_ruhig' x='932' y='966' width='48.0' height='48.0'/>
-  <SubTexture name='fire_walk_front_right_01_selbstsicher' x='981' y='721' width='48.0' height='48.0'/>
-  <SubTexture name='fire_walk_front_right_02' x='1030' y='721' width='48.0' height='48.0'/>
-  <SubTexture name='fire_walk_front_right_02_depri' x='1079' y='721' width='48.0' height='48.0'/>
-  <SubTexture name='fire_walk_front_right_02_happy' x='1128' y='721' width='48.0' height='48.0'/>
-  <SubTexture name='fire_walk_front_right_02_hulk' x='1177' y='721' width='48.0' height='48.0'/>
-  <SubTexture name='fire_walk_front_right_02_ruhig' x='1226' y='721' width='48.0' height='48.0'/>
-  <SubTexture name='fire_walk_front_right_02_selbstsicher' x='981' y='770' width='48.0' height='48.0'/>
-  <SubTexture name='fire_normal_front_right_ruhig' x='981' y='819' width='48.0' height='48.0'/>
-  <SubTexture name='fire_normal_front_right_hulk' x='981' y='868' width='48.0' height='48.0'/>
-  <SubTexture name='fire_normal_front_right_happy' x='981' y='917' width='48.0' height='48.0'/>
-  <SubTexture name='fire_normal_front_right_depri' x='981' y='966' width='48.0' height='48.0'/>
-  <SubTexture name='fire_normal_front_right' x='1030' y='770' width='48.0' height='48.0'/>
-  <SubTexture name='fire_normal_back_right_selbstsicher' x='1079' y='770' width='48.0' height='48.0'/>
-  <SubTexture name='fire_normal_back_right_ruhig' x='1128' y='770' width='48.0' height='48.0'/>
-  <SubTexture name='fire_normal_back_right_hulk' x='1177' y='770' width='48.0' height='48.0'/>
-  <SubTexture name='fire_normal_back_right_happy' x='1226' y='770' width='48.0' height='48.0'/>
-  <SubTexture name='fire_normal_back_right_depri' x='1030' y='819' width='48.0' height='48.0'/>
-  <SubTexture name='fire_normal_back_right' x='1030' y='868' width='48.0' height='48.0'/>
+  <SubTexture name='fire_walk_back_left_01' x='270' y='924' width='48.0' height='48.0'/>
+  <SubTexture name='fire_walk_back_left_01_depri' x='270' y='973' width='48.0' height='48.0'/>
+  <SubTexture name='fire_walk_back_left_01_happy' x='761' y='965' width='48.0' height='48.0'/>
+  <SubTexture name='fire_walk_back_left_01_hulk' x='822' y='904' width='48.0' height='48.0'/>
+  <SubTexture name='fire_walk_back_left_01_ruhig' x='822' y='953' width='48.0' height='48.0'/>
+  <SubTexture name='fire_walk_back_left_01_selbstsicher' x='883' y='721' width='48.0' height='48.0'/>
+  <SubTexture name='fire_walk_back_left_02' x='883' y='770' width='48.0' height='48.0'/>
+  <SubTexture name='fire_walk_back_left_02_depri' x='883' y='819' width='48.0' height='48.0'/>
+  <SubTexture name='fire_walk_back_left_02_happy' x='883' y='868' width='48.0' height='48.0'/>
+  <SubTexture name='fire_walk_back_left_02_hulk' x='883' y='917' width='48.0' height='48.0'/>
+  <SubTexture name='fire_walk_back_left_02_ruhig' x='883' y='966' width='48.0' height='48.0'/>
+  <SubTexture name='fire_walk_back_left_02_selbstsicher' x='932' y='721' width='48.0' height='48.0'/>
+  <SubTexture name='fire_walk_front_left_01' x='932' y='770' width='48.0' height='48.0'/>
+  <SubTexture name='fire_walk_front_left_01_depri' x='932' y='819' width='48.0' height='48.0'/>
+  <SubTexture name='fire_walk_front_left_01_happy' x='932' y='868' width='48.0' height='48.0'/>
+  <SubTexture name='fire_walk_front_left_01_hulk' x='932' y='917' width='48.0' height='48.0'/>
+  <SubTexture name='fire_walk_front_left_01_ruhig' x='932' y='966' width='48.0' height='48.0'/>
+  <SubTexture name='fire_walk_front_left_01_selbstsicher' x='981' y='721' width='48.0' height='48.0'/>
+  <SubTexture name='fire_walk_front_left_02' x='1030' y='721' width='48.0' height='48.0'/>
+  <SubTexture name='fire_walk_front_left_02_depri' x='1079' y='721' width='48.0' height='48.0'/>
+  <SubTexture name='fire_walk_front_left_02_happy' x='1128' y='721' width='48.0' height='48.0'/>
+  <SubTexture name='fire_walk_front_left_02_hulk' x='1177' y='721' width='48.0' height='48.0'/>
+  <SubTexture name='fire_walk_front_left_02_ruhig' x='1226' y='721' width='48.0' height='48.0'/>
+  <SubTexture name='fire_walk_front_left_02_selbstsicher' x='981' y='770' width='48.0' height='48.0'/>
+  <SubTexture name='fire_normal_front_left_ruhig' x='981' y='819' width='48.0' height='48.0'/>
+  <SubTexture name='fire_normal_front_left_hulk' x='981' y='868' width='48.0' height='48.0'/>
+  <SubTexture name='fire_normal_front_left_happy' x='981' y='917' width='48.0' height='48.0'/>
+  <SubTexture name='fire_normal_front_left_depri' x='981' y='966' width='48.0' height='48.0'/>
+  <SubTexture name='fire_normal_front_left' x='1030' y='770' width='48.0' height='48.0'/>
+  <SubTexture name='fire_normal_back_left_selbstsicher' x='1079' y='770' width='48.0' height='48.0'/>
+  <SubTexture name='fire_normal_back_left_ruhig' x='1128' y='770' width='48.0' height='48.0'/>
+  <SubTexture name='fire_normal_back_left_hulk' x='1177' y='770' width='48.0' height='48.0'/>
+  <SubTexture name='fire_normal_back_left_happy' x='1226' y='770' width='48.0' height='48.0'/>
+  <SubTexture name='fire_normal_back_left_depri' x='1030' y='819' width='48.0' height='48.0'/>
+  <SubTexture name='fire_normal_back_left' x='1030' y='868' width='48.0' height='48.0'/>
   <SubTexture name='emotions_schokolade' x='1030' y='917' width='48.0' height='48.0'/>
   <SubTexture name='emotions_pillow' x='1030' y='966' width='48.0' height='48.0'/>
   <SubTexture name='emotions_hantel' x='1079' y='819' width='48.0' height='48.0'/>
@@ -72,7 +72,7 @@
   <SubTexture name='water_normal_front_left_depri' x='1128' y='966' width='48.0' height='48.0'/>
   <SubTexture name='water_normal_front_left_happy' x='1177' y='917' width='48.0' height='48.0'/>
   <SubTexture name='water_normal_front_left_hulk' x='1226' y='917' width='48.0' height='48.0'/>
-  <SubTexture name='fire_normal_front_right_selbstsicher' x='1177' y='966' width='48.0' height='48.0'/>
+  <SubTexture name='fire_normal_front_left_selbstsicher' x='1177' y='966' width='48.0' height='48.0'/>
   <SubTexture name='water_normal_front_left_selbstsicher' x='1226' y='966' width='48.0' height='48.0'/>
   <SubTexture name='water_walk_back_left_01' x='1281' y='0' width='48.0' height='48.0'/>
   <SubTexture name='water_walk_back_left_01_depri' x='1330' y='0' width='48.0' height='48.0'/>
