@@ -29,8 +29,11 @@ package
 		public static const P2_KEY_RIGHT:uint 	= Keyboard.D;
 		public static const P2_KEY_ACTION:uint 	= Keyboard.CONTROL;
 		
+		//Variable defines status of Backspace
+		private static var _KeyResetPressed: Boolean = false;
+		
 		//Variable defines status of Player 1 keys
-		private static var _p1KeyUpPressed, _p1KeyDownPressed, _p1KeyLeftPressed, _p1KeyRightPressed, _p1KeyActionPressed, _KeyResetPressed: Boolean = false;
+		private static var _p1KeyUpPressed, _p1KeyDownPressed, _p1KeyLeftPressed, _p1KeyRightPressed, _p1KeyActionPressed : Boolean = false;
 		
 		//Variable defines status of Player 2 keys
 		private static var _p2KeyUpPressed, _p2KeyDownPressed, _p2KeyLeftPressed, _p2KeyRightPressed, _p2KeyActionPressed : Boolean = false;

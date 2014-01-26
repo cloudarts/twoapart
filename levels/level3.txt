@@ -20,5 +20,5 @@ p2,19,11
 angry,2,8
 sad,12,3
 
-stone,15,4
-stone,15,5
+stone,10,4
+stone,10,5
