@@ -23,7 +23,8 @@ package {
                 new Rectangle(0, 0, stage.fullScreenWidth, stage.fullScreenHeight), 
                 ScaleMode.SHOW_ALL);
 				
-			_starling = new Starling(Game, stage, viewPort);
+			//_starling = new Starling(Game, stage, viewPort);
+			_starling = new Starling(Game, stage, null, null, "auto", "baseline");
             _starling.stage.stageWidth  = Constants.SCREEN_WIDTH; 
             _starling.stage.stageHeight = Constants.SCREEN_HEIGHT;
             _starling.simulateMultitouch  = false;
