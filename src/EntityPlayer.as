@@ -39,7 +39,11 @@ package
 		
 		private var entityTexName:String;
 		
-		private var isInAir : Boolean = false;
+		private var inAir : Boolean = false;
+		private var inAirTile : int = -1;
+		private var airAnimationDelay : Number = 1.0;
+		
+		private var currentAnimationDelay : Number = 0.0;
 		
 		public function EntityPlayer( playerID : int ) 
 		{
@@ -57,6 +61,19 @@ package
 		
 		public function getEmotion():int {
 			return _emotionID;
+		}
+		
+		public function isInAir() : Boolean {
+			return inAir;
+		}
+		
+		public function setInAir(inAir : Boolean, tileID : int) : void {
+			this.inAir = inAir;
+			this.inAirTile = tileID;
+		}
+		
+		public function getLastInAirTile() : int {
+			return inAirTile;
 		}
 		
 		private function updatePlayerTex():void 
@@ -110,6 +127,7 @@ package
 				switch ( _stateID ) {
 					case STATE_NORMAL:
 						_animationID = 0;
+						
 						break;
 					case STATE_WALK:
 						if ( _animationID == 2 ) {
@@ -220,6 +238,7 @@ package
 			
 			currentSpeedup = 1.0;
 			currentMaxSpeedup = 1.0;
+			currentAnimationDelay = 0.0;
 			
 			switch(emotion) {
 				case Constants.EMOTION_NONE:
@@ -233,6 +252,7 @@ package
 					break;
 				case Constants.EMOTION_HAPPY:
 					_emotionID = Constants.EMOTION_HAPPY;
+					currentAnimationDelay = 0;
 					break;
 				case Constants.EMOTION_ANGRY:
 					_emotionID = Constants.EMOTION_ANGRY;
