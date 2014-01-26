@@ -3,6 +3,7 @@ package  {
 	import flash.geom.Point;
 	import starling.display.BlendMode;
 	import starling.display.Image;
+	import starling.display.Quad;
 	import starling.textures.RenderTexture;
 	import starling.textures.Texture;
 	/**
@@ -19,33 +20,30 @@ package  {
 		private var _fogImage:Image;
 		private var _viewCircleTexture:Texture;
 		private var _viewCircleImage:Image;
+		private var _blackQuad:Quad;
 		
-		private var _pos1:Point = null;
-		private var _pos2:Point = null;
+		private var _pos1:Point = new Point();
+		private var _pos2:Point = new Point();
 		
 		// to draw the whole fog image to the screen texture
 		private var _renderMat:Matrix;
 		
-		// to draw the two view circles to the fog texture
-		private var _viewCircleMat:Matrix;
-		
-		private var _viewCircleScaleMat:Matrix;
+		// to draw the two view circles to the fog texture		
 		private var _viewCircleTransMat:Matrix;
 		
 		public function Fog() {
-			_fogTexture = new RenderTexture(Constants.SCREEN_WIDTH * FOG_SCALING, Constants.SCREEN_HEIGHT * FOG_SCALING, false);
+			_fogTexture = new RenderTexture(Constants.SCREEN_WIDTH * FOG_SCALING, Constants.SCREEN_HEIGHT * FOG_SCALING, true);
 			_fogImage = new Image(_fogTexture);
 			_viewCircleTexture = Game.textureAtlas.getTexture("vision_alpha_mask");
 			_viewCircleImage = new Image(_viewCircleTexture);
 			_viewCircleImage.blendMode = BlendMode.ERASE;
+			_blackQuad = new Quad(_fogTexture.width, _fogTexture.height, 0x000000, true);
 			
 			// texture may be smaller than screen for performance reasons. 
 			// when drawing, it has to be scaled up to screen size
 			_renderMat = new Matrix();
 			_renderMat.scale(1.0 / FOG_SCALING, 1.0 / FOG_SCALING);
 			
-			_viewCircleMat = new Matrix();
-			_viewCircleScaleMat = new Matrix();
 			_viewCircleTransMat = new Matrix();
 		}
 		
@@ -70,27 +68,23 @@ package  {
 		}
 		
 		private function refreshFog():void {
-			_fogTexture.clear(0x000000, 1);
+			//_fogTexture.clear(0x000000, 1);
+			_fogTexture.draw(_blackQuad);
 			
-			_viewCircleMat.identity();
-			_viewCircleScaleMat.identity();
-			_viewCircleTransMat.identity();
+			_viewCircleTransMat.identity();			
 			
-			_viewCircleScaleMat.scale(VIEW_CIRCLE_SCALE * FOG_SCALING, VIEW_CIRCLE_SCALE * FOG_SCALING);
-			
-			var x:Number = (_pos1.x - _viewCircleTexture.width) * FOG_SCALING;
+			var x:Number = (_pos1.x - _viewCircleTexture.width/2) * FOG_SCALING;
 			var y:Number = (_pos1.y - _viewCircleTexture.height) * FOG_SCALING;
 			_viewCircleTransMat.translate(x, y);
-			_viewCircleMat.concat(_viewCircleScaleMat);
-			_viewCircleMat.concat(_viewCircleTransMat);
-			_fogTexture.draw(_viewCircleImage, _viewCircleMat);
+			_fogTexture.draw(_viewCircleImage, _viewCircleTransMat);
 			
-			x = (_pos2.x - _viewCircleTexture.width) * FOG_SCALING;
+			_viewCircleTransMat.identity();
+			
+			x = (_pos2.x - _viewCircleTexture.width/2) * FOG_SCALING;
 			y = (_pos2.y - _viewCircleTexture.height) * FOG_SCALING;
 			_viewCircleTransMat.translate(x, y);
-			_viewCircleMat.concat(_viewCircleScaleMat);
-			_viewCircleMat.concat(_viewCircleTransMat);
-			_fogTexture.draw(_viewCircleImage, _viewCircleMat);			
+			_fogTexture.draw(_viewCircleImage, _viewCircleTransMat);		
+			
 		}
 	}
 

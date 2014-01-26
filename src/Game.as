@@ -44,9 +44,8 @@ package  {
 		
 		private var intro : Intro;
 		
-		private var _fog:Fog;
+		public static var _fog:Fog;
 		
-=
 		private var levels : Vector.<ByteArray>  = new Vector.<ByteArray>;
 		private var currentLevelID : int = 0;
 		
@@ -117,6 +116,9 @@ package  {
 				} else {
 					// update game logic
 					currentLevel.update(delta);
+					if( currentLevel.p1 && currentLevel.p2 ) {
+						_fog.setVisibleAreas( currentLevel.p1.getPivotPoint(), currentLevel.p2.getPivotPoint() );
+					}
 				}
 				
 				_currentGameTimeMillis += deltaMillis;
@@ -134,9 +136,13 @@ package  {
 					intro.draw(renderTexture);
 				} else {
 					currentLevel.draw(renderTexture);
-					_fog.draw(renderTexture);
+					
 				}
 			});
+			
+			if (!intro.isRunning) {
+				_fog.draw(renderTexture);
+			}
 		}
 	}
 
