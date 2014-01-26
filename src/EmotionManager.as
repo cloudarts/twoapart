@@ -10,7 +10,6 @@ package
 	 */
 	public class EmotionManager 
 	{
-		private var stack:Array = new Array();
 		private var activeEmotions:Array = [Constants.EMOTION_NONE, Constants.EMOTION_NONE];
 		private var playerGUIs: Vector.<Image>;
 		private var waiting:Vector.<int> = new Vector.<int>();
@@ -26,6 +25,12 @@ package
 		private var matStartWaitP2:Matrix = new Matrix();
 		private var matDeltaP1:Matrix	= new Matrix();
 		private var matDeltaP2:Matrix	= new Matrix();
+		
+		private var _players:Array = new Array(2);
+		private var _p1ActionDown : Boolean = false;
+		private var _p2ActionDown : Boolean = false;
+		
+		private var timers_Emotion : Array = [- 1.0 , -1.0];
 		
 		public function EmotionManager() 
 		{
@@ -77,6 +82,18 @@ package
 			renderTexture.draw(texGUIImg[0], matP1);
 			renderTexture.draw(texGUIImg[1], matP2);
 			
+			if (activeEmotions[0] != Constants.EMOTION_NONE) {
+				var tempMat : Matrix = matP1.clone();
+				tempMat.translate(Constants.TILE_SIDE_SIZE, Constants.TILE_SIDE_SIZE);
+				renderTexture.draw(emoticons[activeEmotions[0]], tempMat);
+			}
+
+			if (activeEmotions[1] != Constants.EMOTION_NONE) {
+				var tempMat : Matrix = matP2.clone();
+				tempMat.translate(-Constants.TILE_SIDE_SIZE, -Constants.TILE_SIDE_SIZE);
+				renderTexture.draw(emoticons[activeEmotions[1]], tempMat);
+			}
+			
 			matP1.concat(matStartWaitP1);
 			matP2.concat(matStartWaitP2);
 			for (var i : int; i < waiting.length; i++) {
@@ -87,13 +104,58 @@ package
 			}
 		}
 		
-		public function update(delta:int):void 
-		{
+		public function setPlayer( player:EntityPlayer, playerID:int) : void {
+			_players[playerID] = player;
+		}
+		
+		public function handleAction(playerID:int) : void {
+			if ( waiting.length == 0 ) {
+				return;
+			} 
+			
+			var emotion:int = waiting.pop();
+			(_players[playerID] as EntityPlayer).useEmotion(emotion);
+			activeEmotions[playerID] = emotion;
+			timers_Emotion[playerID] = Constants.EMOTION_DURATION;
 			
 		}
 		
+		public function update(delta:Number):void 
+		{
+			if ( _p1ActionDown && !KeyboardController.isPressed_Action(0) ) {
+				_p1ActionDown = false;
+				handleAction(0)
+			} else if ( !_p1ActionDown && KeyboardController.isPressed_Action(0) ) {
+				_p1ActionDown = true;
+			}
+			
+			if ( _p2ActionDown && !KeyboardController.isPressed_Action(1) ) {
+				_p2ActionDown = false;
+				handleAction(1)
+			} else if ( !_p2ActionDown && KeyboardController.isPressed_Action(1) ) {
+				_p2ActionDown = true;
+			}
+			
+			if (timers_Emotion[0] > 0.0 ) {
+				timers_Emotion[0] -= delta;
+				if ( timers_Emotion[0] <= 0.0) {
+					activeEmotions[0] = Constants.EMOTION_NONE;
+					(_players[0] as EntityPlayer).useEmotion(Constants.EMOTION_NONE);
+				}
+			} 
+			
+			if (timers_Emotion[1] > 0.0 ) {
+				timers_Emotion[1] -= delta;
+				if ( timers_Emotion[1] <= 0.0) {
+					activeEmotions[1] = Constants.EMOTION_NONE;
+					(_players[1] as EntityPlayer).useEmotion(Constants.EMOTION_NONE);
+				}
+			} 
+				
+		}
+		
 		public function push(emotion:int):void {
-			stack.push(emotion);
+			waiting.push(emotion);
 		}
 		
 	}
