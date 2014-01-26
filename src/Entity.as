@@ -15,6 +15,8 @@ package  {
 		public const borderTop = Constants.TILE_SIDE_SIZE;
 		public const borderLeft = Constants.TILE_TOP_SIZE * 2;
 		
+		protected var level:Level;
+		
 		protected var entityImage : Image;
 		
 		protected var world : Matrix;
@@ -25,8 +27,6 @@ package  {
 		
 		protected var centerPixelPos : Point;
 		protected var centerTilePos : Point;
-		
-		protected var offsetScalingX : Number = 0;
 		
 		public function Entity() {
 			world = new Matrix();
@@ -46,8 +46,8 @@ package  {
 			updateBoundingBox();
 		}
 		
-		public static function getPixelFromTile(x : int, y : int) : Point {
-			return new Point(Constants.TILE_TOP_SIZE * x , Constants.TILE_TOP_SIZE * y );
+		public function setLevel(level:Level):void {
+			this.level = level;
 		}
 		
 		public function setPixelPos(x : Number, y: Number) {
@@ -85,8 +85,9 @@ package  {
 		}
 		
 		public function draw(targetTexture : RenderTexture) : void {
-			world.tx = centerPixelPos.x + offsetX + borderLeft + offsetScalingX;
-			world.ty = centerPixelPos.y + offsetY + borderTop;
+			world.createBox(1, 1, 0,
+				centerPixelPos.x + offsetX + borderLeft, 
+				centerPixelPos.y + offsetY + borderTop);
 			
 			targetTexture.draw(entityImage, world);
 		}

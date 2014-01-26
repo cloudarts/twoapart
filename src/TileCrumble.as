@@ -43,6 +43,7 @@ package
 					} else {
 						//TODO Handle crumble finish tile
 						isCrumbling = false;
+						level.changeGrumbleToHole(this.centerTilePos);
 					}
 					crumbleTime = Constants.INIT_CRUMBLE_TIME;
 				}

@@ -66,7 +66,11 @@ package  {
 			{
 				entities[j].draw(renderTexture);
 			}
-			
+			for (var i:int = 0; i < entities.length; i++)
+			{
+				if (entities[i] instanceof TileWall)
+					entities[i].drawDebug(renderTexture);
+			}
 			emotionManager.draw(renderTexture);
 		}
 		
@@ -279,6 +283,7 @@ package  {
 							break;
 					}
 					if (entity != null) {
+						entity.setLevel(this);
 						entity.setTile(j, i - 3);
 						if (entity instanceof TileWall || entity instanceof TileNarrowHorizontal || entity instanceof TileNarrowVertical) {
 							entities.push(entity);
@@ -359,6 +364,7 @@ package  {
 						if (tokens.length == 3) {
 							entity = new EntitySad();
 						} else trace(ERROR_MSG_WRONG_COUNT);
+						break;
 					case ENTITY_MINE:
 						if (tokens.length > 4 && (tokens.length % 2 == 1)) {
 							var waypoints:Array = new Array();
@@ -379,7 +385,8 @@ package  {
 						break;
 				}
 					
-				if(entity != null){
+				if (entity != null) {
+					entity.setLevel(this);
 					entity.setTile(tokens[1], tokens[2]);
 					entities.push(entity);
 				}
