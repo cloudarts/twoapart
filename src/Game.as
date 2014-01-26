@@ -11,6 +11,7 @@ package  {
 	import starling.textures.RenderTexture;
 	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
+
 	
 	/**
 	 * ...
@@ -35,6 +36,9 @@ package  {
 		private var _currentGameTimeMillis:Number = 0;
 		private var _timeLastStepMillis:Number = 0;
 		
+		private var intro : Intro;
+		
+		
 		public function Game() {
 			var txt:ByteArray = new LEVEL6() as ByteArray;
 			
@@ -50,10 +54,14 @@ package  {
 			this.addChild(renderImage);
 			//and BG Image
 			bgImage = new Image( Game.textureAtlas.getTexture("background_stars"));
-						
+
 			//Init KeyboardController
 			KeyboardController.initalize();
+
 			
+			//Init intro
+			intro = new Intro();
+				
 			//Init Level
 			currentLevel = new Level();
 			currentLevel.initialize(txt.toString());
@@ -78,8 +86,12 @@ package  {
 				var deltaMillis:Number = Math.min(Constants.TICK_DURSTION, millisToGoThisFrame);
 				var delta:Number = deltaMillis / 1000.0;
 				
-				// update game logic
-				currentLevel.update(delta);
+				if (intro.isRunning) {
+					intro.update(delta);
+				} else {
+					// update game logic
+					currentLevel.update(delta);
+				}
 				
 				_currentGameTimeMillis += deltaMillis;
 				millisToGoThisFrame -= deltaMillis;
@@ -92,7 +104,11 @@ package  {
 		public function draw() : void {
 			renderTexture.drawBundled(function() : void {
 				renderTexture.draw(bgImage);
-				currentLevel.draw(renderTexture);
+				if (intro.isRunning) {
+					intro.draw(renderTexture);
+				} else {
+					currentLevel.draw(renderTexture);
+				}
 			});
 		}
 	}
