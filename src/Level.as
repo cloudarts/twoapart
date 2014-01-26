@@ -35,6 +35,8 @@ package  {
 		public var width:int 	= -1;
 		public var height:int 	= -1;
 		
+		private var stack:Array = new Array();
+		private var activeEmotion:Entity = null;
 		
 		/**
 		 * one-dimensional tile array
@@ -106,34 +108,61 @@ package  {
 			var bbPy : Rectangle = player.getBoundingBox(tempP);
 			
 			//Get all tiles and entities
-			var allTiles : Vector.<Entity> = tiles.concat(entities);
 			
-			for (var i:int = 0; i < allTiles.length; i++) {
-				if (allTiles[i] instanceof TileCrumble || allTiles[i] instanceof TileHole ||
-					allTiles[i] instanceof TileNarrowHorizontal || allTiles[i] instanceof TileNarrowVertical) {
-					
-					var r : Rectangle = allTiles[i].getOwnBoundingBox();
+			for (var i:int = 0; i < tiles.length; i++) {
+				if (tiles[i] instanceof TileCrumble || tiles[i] instanceof TileHole ||
+					tiles[i] instanceof TileNarrowHorizontal || tiles[i] instanceof TileNarrowVertical) {
+						
+					var r : Rectangle = tiles[i].getOwnBoundingBox();
 					var hitX : Boolean = checkForCollision(bbPx, r);
 					var hitY : Boolean = checkForCollision(bbPy, r);
 					
 					//Check if we collided sth meaningful
 					if (hitX || hitY) {
 						if (tiles[i] instanceof TileCrumble) {
-							var tile : TileCrumble = allTiles[i] as TileCrumble;
+							var tile : TileCrumble = tiles[i] as TileCrumble;
 							tile.startCrumble();
-						} else if (allTiles[i] instanceof TileHole) {
+						} else if (tiles[i] instanceof TileHole) {
 							//Handle Player death
 							
-						} else if (allTiles[i] instanceof TileNarrowHorizontal) {
+						} else if (tiles[i] instanceof TileNarrowHorizontal) {
 							//Handle Player death
 							
-						} else if (allTiles[i] instanceof TileNarrowVertical) {
+						} else if (tiles[i] instanceof TileNarrowVertical) {
 							//Handle Player death
 							
 						} 
 					}
 				}
 			}
+			for (var i : int = 0; i < entities.length; i++) {
+				var r : Rectangle = entities[i].getOwnBoundingBox();
+					var hitX : Boolean = checkForCollision(bbPx, r);
+					var hitY : Boolean = checkForCollision(bbPy, r);
+					
+					//Check if we collided sth meaningful
+					if (hitX || hitY) {
+						if (entities[i] instanceof TileWall) {
+							if (hitX) {
+								moveVec.x = 0;
+							}
+							if (hitY) {
+								moveVec.y = 0;
+							}
+						} else if(entities[i] instanceof EntityPlayer){
+								
+								if (entities[i] != player) {
+									//Finish Level
+								}
+						} else {
+							// Push to stack and delete Object
+							//stack.push(entities[i].getEmotion());
+							entities.splice(i, 1);
+						}
+						
+					}
+			}
+			
 			
 			return new Point( player.getPixelPos().x + moveVec.x, player.getPixelPos().y + moveVec.y);
 		}
@@ -284,6 +313,11 @@ package  {
 			return e1.intersects(e2);
 			
 		}
+		
+		public function getNextStackElement() : int{
+			return 0;
+		}
+		
 		
 	}
 }
