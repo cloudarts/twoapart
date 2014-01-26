@@ -31,7 +31,7 @@ package
 		
 		private var texPlayerTag : Array = ["fire_", "water_"];
 		private var texStateTag : Array = ["normal_", "walk_"]
-		private var texDirectionTag : Array = ["front_left", "back_left"];
+		private var texDirectionTag : Array = ["front", "back"];
 		private var texAnimation : Array = ["", "_01", "_02"];
 		private var texEmotionTag : Array = ["", "_depri", "_ruhig", "_happy", "_hulk", "_selbstsicher"];
 		
