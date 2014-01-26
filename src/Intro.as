@@ -10,9 +10,10 @@ package
 	 * @author ...
 	 */
 	public class Intro 
-	{
-		// in seconds
-		private const DURATION_START_FADE_IN : Number = 5; 
+	{ 
+		private const PHASE_0 : Number = 2.0; //just wait
+		private const PHASE_1 : Number = 4.0; //separate fire and water
+		private const PHASE_2 : Number = 6.0; //start button fades in
 		
 		private var logo : Image;
 		private var logoFire : Image;
@@ -71,11 +72,16 @@ package
 		public function update(delta : Number) : void {
 			animTime += delta;
 			
-			var progress:Number = animTime / DURATION_START_FADE_IN;
-			alpha = progress;
-			
-			alpha += DURATION_START_FADE_IN * delta;
-			if (1 == alpha) {
+			if (animTime < PHASE_0) {
+				//do nothing
+			} else if(animTime < PHASE_1) {
+				
+			} else {
+				var durationFadeIn : Number = (PHASE_2 - PHASE_1);
+				var progress : Number = (animTime - PHASE_1) / durationFadeIn;
+				alpha = progress;
+				trace(alpha);
+				
 				if ( KeyboardController.isPressed_Action(0) || KeyboardController.isPressed_Action(1)) {
 					isRunning = false;
 				}
@@ -87,5 +93,4 @@ package
 			animTime = 0;
 		}
 	}
-
 }
