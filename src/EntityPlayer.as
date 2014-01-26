@@ -11,9 +11,12 @@ package
 	 */
 	public class EntityPlayer extends Entity
 	{	
+		private const STATE_NORMAL : int 	= 0;
+		private const STATE_WALK : int 		= 1;
+		
 		private var _playerID : int;
 		private var _stateID : int; 
-		private var _directionID : int; 
+		private var _directionID : int;
 		private var _animationID : int;
 		
 		private var speed : Point;
@@ -21,26 +24,29 @@ package
 		private var maxSpeed : Number  = 100 ;
 		private var increaseAccl : Number = 500;
 		private var friction : Number = 0.9;
+		private var isRight : Boolean = false;
+		
+		private var animationUpdate : Number = 0;
 		
 		private var level : Level;
 		
 		private var texPlayerTag : Array = ["fire_", "water_"];
 		private var texStateTag : Array = ["normal_", "walk_"]
-		private var texDirectionTag : Array = ["front_left", "front_right", "back_left", "back_right"];
+		private var texDirectionTag : Array = ["front_left", "back_left"];
 		private var texAnimation : Array = ["","_01", "_02"];
 		
 		private var entityTexName:String;
 		
 		public function EntityPlayer( playerID : int ) 
 		{
-			this.playerID = playerID;
-			stateID = 0;
-			directionID = 0;
-			animationID = 0;
+			this._playerID = playerID;
+			_stateID = 0;
+			_directionID = 0;
+			_animationID = 0;
 			
 			updatePlayerTex();
 			
-			speed = new Point( 0 , 0 );
+			speed = new Point( 0 , 0 ); // <-- Eule
 			acceleration = new Point( 0 , 0 );
 		}
 		
@@ -50,8 +56,8 @@ package
 		
 		private function updatePlayerTex():void 
 		{
-			entityTexName = texPlayerTag[playerID] + texStateTag[stateID] 
-				+ texDirectionTag[directionID] + texAnimation[animationID];
+			entityTexName = "" + texPlayerTag[_playerID] + texStateTag[_stateID] 
+				+ texDirectionTag[_directionID] + texAnimation[_animationID];
 			
 			entityImage = new Image( Game.textureAtlas.getTexture(entityTexName) );
 			entityImage.smoothing = TextureSmoothing.NONE;
@@ -68,9 +74,54 @@ package
 			super.update(delta);
 			
 			handleMovement(delta);
+			handleState();
+			handleDirection();
+			handleAnimation(delta);
 			/*time += delta;
 			offsetX = 5 * Math.sin(time);
 			offsetY = 5 * Math.cos(offsetX * time);*/
+		}
+		
+		private function handleState() : void {
+			if (speed.x < -1.5 || speed.x > 1.5 || speed.y < -1.5 || speed.y > 1.5) {
+				_stateID = STATE_WALK;
+			} else {
+				_stateID = STATE_NORMAL;
+			}
+		}
+		
+		private function handleDirection() : void {
+			
+			if (isRight) {
+				offsetScalingX = Constants.CHARACTER_SIZE;
+			} else {
+				offsetScalingX = 0;
+			}
+				
+			//updatePlayerTex();
+		}
+		
+		private function handleAnimation(delta) : void {
+			animationUpdate += delta;
+			
+			if(animationUpdate > 0.4){
+				switch ( _stateID ) {
+					case STATE_NORMAL:
+						_animationID = 0;
+						break;
+					case STATE_WALK:
+						if ( _animationID == 2 ) {
+							_animationID = 1;
+						} else {
+							_animationID = 2;
+						}						
+						break;
+					default:
+						break;
+				}
+				updatePlayerTex();
+				animationUpdate = 0;
+			}				
 		}
 		
 		private function handleMovement(delta : Number) : void {
@@ -90,6 +141,26 @@ package
 				
 			acceleration.x = (right - left) * increaseAccl;
 			acceleration.y = (down - up) * increaseAccl;
+			
+			if ( right == 1 ) {
+				if (!isRight) {
+					world.scale( -1 , 1 );
+					isRight = true;
+				}
+			} 
+			if ( left == 1 ) {
+				if (isRight) {
+					world.scale( -1 , 1 );
+					isRight = false;
+				}
+			}
+			
+			if ( down == 1) {
+				_directionID = 0;
+			}
+			if(up == 1) {
+				_directionID = 1;
+			}
 			
 			speed.x += delta * acceleration.x;
 			speed.y += delta * acceleration.y;
@@ -139,12 +210,12 @@ package
 			updatePlayerTex();
 		}
 		
-		public function get directionID():int 
+		public function get directionID() : int 
 		{
 			return _directionID;
 		}
 		
-		public function set directionID(value:int):void 
+		public function set directionID( value : int ) : void 
 		{
 			_directionID = value;
 			updatePlayerTex();
