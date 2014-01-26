@@ -47,7 +47,7 @@ package  {
 		public static var _fog:Fog;
 		
 		private var levels : Vector.<ByteArray>  = new Vector.<ByteArray>;
-		private var currentLevelID : int = 5;
+		private var currentLevelID : int = 0;
 		
 		public function Game() {
 			
