@@ -20,7 +20,12 @@ package  {
 	public class Game extends Sprite {
 		
 		[Embed(source = "../levels/level6.txt", mimeType = "application/octet-stream")] public var LEVEL6:Class;
-		[Embed(source="../levels/level4.txt",mimeType="application/octet-stream")] public var LEVEL4:Class;
+		[Embed(source = "../levels/level5.txt", mimeType = "application/octet-stream")] public var LEVEL5:Class;
+		[Embed(source = "../levels/level4.txt", mimeType = "application/octet-stream")] public var LEVEL4:Class;
+		[Embed(source = "../levels/level3.txt", mimeType = "application/octet-stream")] public var LEVEL3:Class;
+		[Embed(source = "../levels/level2.txt", mimeType = "application/octet-stream")] public var LEVEL2:Class;
+		[Embed(source = "../levels/level1.txt", mimeType = "application/octet-stream")] public var LEVEL1:Class;
+
 		// Embed the Atlas XML
 		[Embed(source="../assets/atlas.xml", mimeType="application/octet-stream")] public static const AtlasXml:Class;
 		// Embed the Atlas Texture:
@@ -39,9 +44,13 @@ package  {
 		
 		private var intro : Intro;
 		
+		private var levels : Vector.<ByteArray>  = new Vector.<ByteArray>;
+		private var currentLevelID : int = 0;
 		
 		public function Game() {
-			var txt:ByteArray = new LEVEL6() as ByteArray;
+			
+			levels.push(new LEVEL1() as ByteArray, new LEVEL2() as ByteArray, new LEVEL3() as ByteArray,
+				new LEVEL4() as ByteArray, new LEVEL5() as ByteArray, new LEVEL6() as ByteArray);
 			
 			// create texture atlas
 			var texture : Texture = Texture.fromBitmap(new AtlasTexture());
@@ -64,11 +73,21 @@ package  {
 			intro = new Intro();
 				
 			//Init Level
-			currentLevel = new Level();
-			currentLevel.initialize(txt.toString());
+			currentLevel = new Level(this);
+			currentLevel.initialize(levels[currentLevelID].toString());
 			
 			_timeLastStepMillis = new Date().getTime();
 			this.addEventListener(EnterFrameEvent.ENTER_FRAME, onEnterFrame);
+		}
+		
+		public function startNextLevel() : void {
+			currentLevelID++;
+			startCurrentLevel();
+		}
+		
+		public function startCurrentLevel() : void {
+			currentLevel = new Level(this);
+			currentLevel.initialize(levels[currentLevelID].toString());
 		}
 		
 		private function onEnterFrame(e:EnterFrameEvent):void {

@@ -36,7 +36,7 @@ package  {
 		public var width:int 	= -1;
 		public var height:int 	= -1;
 		
-		
+		private var game : Game;
 		
 		/**
 		 * one-dimensional tile array
@@ -49,8 +49,8 @@ package  {
 		public var entities:Vector.<Entity> = null;
 		
 		
-		public function Level() {
-		
+		public function Level(game : Game) {
+			this.game = game;
 		}
 		
 		public function draw(renderTexture : RenderTexture) : void {

@@ -31,7 +31,7 @@ package
 		
 		private var texPlayerTag : Array = ["fire_", "water_"];
 		private var texStateTag : Array = ["normal_", "walk_"]
-		private var texDirectionTag : Array = ["front_left", "back_left"];
+		private var texDirectionTag : Array = ["front", "back"];
 		private var texAnimation : Array = ["", "_01", "_02"];
 		private var texEmotionTag : Array = ["", "_depri", "_ruhig", "_happy", "_hulk", "_selbstsicher"];
 		
@@ -141,13 +141,13 @@ package
 			acceleration.x = (right - left) * increaseAccl;
 			acceleration.y = (down - up) * increaseAccl;
 			
-			if ( left == 1 ) {
+			if ( right == 1 ) {
 				if (!isRight) {
 					world.scale( -1 , 1 );
 					isRight = true;
 				}
 			} 
-			if ( right == 1 ) {
+			if ( left == 1 ) {
 				if (isRight) {
 					world.scale( -1 , 1 );
 					isRight = false;

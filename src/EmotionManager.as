@@ -16,7 +16,7 @@ package
 		private var emoticons:Vector.<Image> = new Vector.<Image>();
 		private var texEmotionNames:Array = ["emotions_flower", "emotions_pillow", "emotions_schokolade", 
 			"emotions_hantel", "emotions_bubble", "emotions_energy-drink"];
-		private var texGUIStr:Array = ["hud_rot", "hud_white"];
+		private var texGUIStr:Array = ["hud_color_p1", "hud_color_p2"];
 		private var texGUIImg:Array = new Array();
 		private var matStartCenter:Matrix = new Matrix();
 		private var matStartP1:Matrix = new Matrix();
