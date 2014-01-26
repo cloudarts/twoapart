@@ -32,20 +32,29 @@ package  {
 			
 			centerPixelPos = new Point(0, 0);
 			centerTilePos = new Point(0, 0);
+			
+			boundingBox = new Rectangle(0, 0, Constants.TILE_TOP_SIZE, Constants.TILE_TOP_SIZE);
 		}
 		
 		public function setTile(x : int, y : int) : void {
 			centerTilePos = new Point(x, y);
 			centerPixelPos.x = Constants.TILE_TOP_SIZE * centerTilePos.x;
 			centerPixelPos.y = Constants.TILE_TOP_SIZE * centerTilePos.y;
-			boundingBox = new Rectangle(centerPixelPos.x, centerPixelPos.y,
-												Constants.TILE_TOP_SIZE, Constants.TILE_TOP_SIZE);
+			
+			updateBoundingBox();
 		}
 		
 		public function setPixelPos(x : Number, y: Number) {
 			centerPixelPos = new Point(x, y);
 			centerTilePos.x = x / Constants.TILE_TOP_SIZE;
 			centerTilePos.y = y / Constants.TILE_TOP_SIZE;
+			
+			updateBoundingBox();
+		}
+		
+		public function updateBoundingBox() {
+			boundingBox = new Rectangle(centerPixelPos.x, centerPixelPos.y,
+												Constants.TILE_TOP_SIZE, Constants.TILE_TOP_SIZE);
 		}
 		
 		public function getTile() : Point {
@@ -61,6 +70,14 @@ package  {
 			time += delta;
 		}
 		
+		public function getBoundingBox( pos : Point) : Rectangle {
+			return new Rectangle(pos.x, pos.y, boundingBox.width, boundingBox.height);
+		}
+		
+		public function getOwnBoundingBox() : Rectangle {
+			return boundingBox;
+		}
+		
 		public function draw(targetTexture : RenderTexture) : void {
 			world.createBox(1, 1, 0,
 				centerPixelPos.x + offsetX + borderLeft, 
@@ -71,7 +88,7 @@ package  {
 		
 		public function drawDebug(targetTexture:RenderTexture, color:uint = 0xff0000)
 		{
-			var quad:Quad = new Quad(1, 1, 0xff0000);
+			var quad:Quad = new Quad(1, 1, color);
 			var matScale:Matrix = new Matrix();
 			var matTrans:Matrix = new Matrix();
 			matTrans.translate(boundingBox.x + borderLeft, boundingBox.y + borderTop);

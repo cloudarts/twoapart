@@ -95,6 +95,49 @@ package  {
 
 		}
 		
+		public function handleCollisions(player : EntityPlayer , moveVec : Point) : Point {
+			var tempP : Point = new Point(0,0);
+			tempP.x = player.getOwnBoundingBox().x + moveVec.x;			
+			tempP.y = player.getOwnBoundingBox().y;			
+			var bbPx : Rectangle = player.getBoundingBox(tempP);
+			
+			tempP.x = player.getOwnBoundingBox().x;			
+			tempP.y = player.getOwnBoundingBox().y + moveVec.y;			
+			var bbPy : Rectangle = player.getBoundingBox(tempP);
+			
+			//Get all tiles and entities
+			var allTiles : Vector.<Entity> = tiles.concat(entities);
+			
+			for (var i:int = 0; i < allTiles.length; i++) {
+				if (allTiles[i] instanceof TileCrumble || allTiles[i] instanceof TileHole ||
+					allTiles[i] instanceof TileNarrowHorizontal || allTiles[i] instanceof TileNarrowVertical) {
+					
+					var r : Rectangle = allTiles[i].getOwnBoundingBox();
+					var hitX : Boolean = checkForCollision(bbPx, r);
+					var hitY : Boolean = checkForCollision(bbPy, r);
+					
+					//Check if we collided sth meaningful
+					if (hitX || hitY) {
+						if (tiles[i] instanceof TileCrumble) {
+							var tile : TileCrumble = allTiles[i] as TileCrumble;
+							tile.startCrumble();
+						} else if (allTiles[i] instanceof TileHole) {
+							//Handle Player death
+							
+						} else if (allTiles[i] instanceof TileNarrowHorizontal) {
+							//Handle Player death
+							
+						} else if (allTiles[i] instanceof TileNarrowVertical) {
+							//Handle Player death
+							
+						} 
+					}
+				}
+			}
+			
+			return new Point( player.getPixelPos().x + moveVec.x, player.getPixelPos().y + moveVec.y);
+		}
+		
 		//Parse the lines of textfile
 		private function parse(lines:Array) : void {
 			this.width = Number(lines[0]);
@@ -155,6 +198,7 @@ package  {
 					case ENTITY_P1:
 						if(tokens.length == 3){
 							entity = new EntityPlayer( 0 );
+							(entity as EntityPlayer).setLevel(this);
 						} else {
 							trace(ERROR_MSG_WRONG_COUNT);
 						}
@@ -162,6 +206,7 @@ package  {
 					case ENTITY_P2:
 						if(tokens.length == 3){
 							entity = new EntityPlayer( 1 );
+							(entity as EntityPlayer).setLevel(this);
 						} else {
 							trace(ERROR_MSG_WRONG_COUNT);
 						}

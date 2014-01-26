@@ -1,6 +1,7 @@
 package  
 {
 	import flash.geom.Point;
+	import flash.geom.Rectangle;
 	import starling.display.Image;
 	import starling.textures.RenderTexture;
 	import starling.textures.TextureSmoothing;
@@ -20,6 +21,8 @@ package
 		private var maxSpeed : Number  = 100 ;
 		private var increaseAccl : Number = 500;
 		private var friction : Number = 0.9;
+		
+		private var level : Level;
 		
 		private var texPlayerTag : Array = ["fire_", "water_"];
 		private var texStateTag : Array = ["normal_", "walk_"]
@@ -41,6 +44,10 @@ package
 			acceleration = new Point( 0 , 0 );
 		}
 		
+		public function setLevel(level : Level) : void {
+			this.level = level;
+		}
+		
 		private function updatePlayerTex():void 
 		{
 			entityTexName = texPlayerTag[playerID] + texStateTag[stateID] 
@@ -53,6 +60,7 @@ package
 		override public function draw(targetTexture:RenderTexture):void 
 		{
 			super.draw(targetTexture);
+			this.drawDebug(targetTexture, 0x0000ff);
 		}
 		
 		override public function update(delta:Number):void 
@@ -83,8 +91,6 @@ package
 			acceleration.x = (right - left) * increaseAccl;
 			acceleration.y = (down - up) * increaseAccl;
 			
-			trace("AXEL" + acceleration);
-			
 			speed.x += delta * acceleration.x;
 			speed.y += delta * acceleration.y;
 			
@@ -95,13 +101,20 @@ package
 			speed.y = Math.min( speed.y, maxSpeed);
 			speed.x = Math.max( speed.x, -1 * maxSpeed);
 			speed.y = Math.max( speed.y, -1 * maxSpeed);
+						
+			var moveVec : Point = new Point(speed.x * delta, speed.y * delta);
 			
-			trace("Speed" + speed);
+			centerPixelPos = level.handleCollisions(this, moveVec);
 			
-			centerPixelPos.x += speed.x * delta;
-			centerPixelPos.y += speed.y * delta;
-			
-			trace("PixelPos" + centerPixelPos);
+			updateBoundingBox();
+		}
+		
+		override public function updateBoundingBox() 
+		{
+			boundingBox = new Rectangle(
+				centerPixelPos.x + Constants.PLAYER_BBOX_PIVOT_X - Constants.PLAYER_BBOX_NORMAL_W / 2.0,
+				centerPixelPos.y + Constants.PLAYER_BBOX_PIVOT_Y - Constants.PLAYER_BBOX_NORMAL_H,
+				Constants.PLAYER_BBOX_NORMAL_W, Constants.PLAYER_BBOX_NORMAL_H);
 		}
 		
 		public function get playerID():int 

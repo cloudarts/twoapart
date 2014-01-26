@@ -1,6 +1,7 @@
 package  
 {
 	import flash.geom.Matrix;
+	import flash.geom.Rectangle;
 	import starling.display.Image;
 	import starling.textures.RenderTexture;
 	import starling.textures.TextureSmoothing;
@@ -21,6 +22,12 @@ package
 			
 			entityImage = new Image( Game.textureAtlas.getTexture(tileTexNames[texIndex]) );
 			entityImage.smoothing = TextureSmoothing.NONE;
+		}
+		
+		override public function setTile(x:int, y:int):void {
+			super.setTile(x,y);
+			boundingBox = new Rectangle(centerPixelPos.x, centerPixelPos.y,
+												Constants.TILE_TOP_SIZE, Constants.TILE_TOP_SIZE);
 		}
 		
 		override public function draw(targetTexture:RenderTexture):void 
