@@ -41,7 +41,7 @@ package  {
 		
 		
 		public function Game() {
-			var txt:ByteArray = new LEVEL4() as ByteArray;
+			var txt:ByteArray = new LEVEL6() as ByteArray;
 			
 			// create texture atlas
 			var texture : Texture = Texture.fromBitmap(new AtlasTexture());

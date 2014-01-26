@@ -84,6 +84,8 @@ package  {
 			for (var i:int = 0; i < entities.length; i++) {
 				entities[i].update(delta);
 			}
+			
+			emotionManager.update( delta );
 		}
 		
 		/**
@@ -92,9 +94,9 @@ package  {
 		public function initialize(levelStr:String) : void {
 			tiles = new Vector.<Entity>();
 			entities = new Vector.<Entity>();
-			var lines:Array = levelStr.split(this.LINE_SEPARATOR); 
+			var lines:Array = levelStr.split(this.LINE_SEPARATOR);
+			emotionManager = new EmotionManager(); 
 			parse(lines);
-			emotionManager = new EmotionManager();
 			
 			var a:int = 0;
 
@@ -339,6 +341,7 @@ package  {
 						if(tokens.length == 3){
 							entity = new EntityPlayer( 0 );
 							(entity as EntityPlayer).setLevel(this);
+							emotionManager.setPlayer((entity as EntityPlayer), 0);
 						} else {
 							trace(ERROR_MSG_WRONG_COUNT);
 						}
@@ -347,6 +350,7 @@ package  {
 						if(tokens.length == 3){
 							entity = new EntityPlayer( 1 );
 							(entity as EntityPlayer).setLevel(this);
+							emotionManager.setPlayer((entity as EntityPlayer), 1);
 						} else {
 							trace(ERROR_MSG_WRONG_COUNT);
 						}

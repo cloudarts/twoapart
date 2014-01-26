@@ -66,8 +66,6 @@ package
 				texGUIImg.push(emoImage);
 			
 			}
-	
-			waiting.push(Constants.EMOTION_ANGRY, Constants.EMOTION_CALM, Constants.EMOTION_SAD);
 		}
 		
 		
@@ -85,20 +83,20 @@ package
 			if (activeEmotions[0] != Constants.EMOTION_NONE) {
 				var tempMat : Matrix = matP1.clone();
 				tempMat.translate(Constants.TILE_SIDE_SIZE, Constants.TILE_SIDE_SIZE);
-				renderTexture.draw(emoticons[activeEmotions[0]], tempMat);
+				renderTexture.draw(emoticons[activeEmotions[0] - 1], tempMat);
 			}
 
 			if (activeEmotions[1] != Constants.EMOTION_NONE) {
 				var tempMat : Matrix = matP2.clone();
 				tempMat.translate(-Constants.TILE_SIDE_SIZE, -Constants.TILE_SIDE_SIZE);
-				renderTexture.draw(emoticons[activeEmotions[1]], tempMat);
+				renderTexture.draw(emoticons[activeEmotions[1] - 1], tempMat);
 			}
 			
 			matP1.concat(matStartWaitP1);
 			matP2.concat(matStartWaitP2);
 			for (var i : int; i < waiting.length; i++) {
-				renderTexture.draw(emoticons[waiting[i]], matP1);
-				renderTexture.draw(emoticons[waiting[i]], matP2);
+				renderTexture.draw(emoticons[waiting[i] - 1], matP1);
+				renderTexture.draw(emoticons[waiting[i] - 1], matP2);
 				matP1.concat(matDeltaP1);
 				matP2.concat(matDeltaP2);
 			}
@@ -109,10 +107,12 @@ package
 		}
 		
 		public function handleAction(playerID:int) : void {
+			trace("Handle action player: " + playerID);
+			
 			if ( waiting.length == 0 ) {
 				return;
 			} 
-			
+			 
 			var emotion:int = waiting.pop();
 			(_players[playerID] as EntityPlayer).useEmotion(emotion);
 			activeEmotions[playerID] = emotion;
@@ -124,14 +124,14 @@ package
 		{
 			if ( _p1ActionDown && !KeyboardController.isPressed_Action(0) ) {
 				_p1ActionDown = false;
-				handleAction(0)
+				handleAction(0);
 			} else if ( !_p1ActionDown && KeyboardController.isPressed_Action(0) ) {
 				_p1ActionDown = true;
 			}
 			
 			if ( _p2ActionDown && !KeyboardController.isPressed_Action(1) ) {
 				_p2ActionDown = false;
-				handleAction(1)
+				handleAction(1);
 			} else if ( !_p2ActionDown && KeyboardController.isPressed_Action(1) ) {
 				_p2ActionDown = true;
 			}
