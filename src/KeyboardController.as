@@ -10,6 +10,7 @@ package
 	public class KeyboardController 
 	{
 	
+		public static const KEY_RESET: uint 		= Keyboard.BACKSPACE;
 		/**
 		 * Keyboard controlls player 1 
 		 */
@@ -29,7 +30,7 @@ package
 		public static const P2_KEY_ACTION:uint 	= Keyboard.CONTROL;
 		
 		//Variable defines status of Player 1 keys
-		private static var _p1KeyUpPressed, _p1KeyDownPressed, _p1KeyLeftPressed, _p1KeyRightPressed, _p1KeyActionPressed : Boolean = false;
+		private static var _p1KeyUpPressed, _p1KeyDownPressed, _p1KeyLeftPressed, _p1KeyRightPressed, _p1KeyActionPressed, _KeyResetPressed: Boolean = false;
 		
 		//Variable defines status of Player 2 keys
 		private static var _p2KeyUpPressed, _p2KeyDownPressed, _p2KeyLeftPressed, _p2KeyRightPressed, _p2KeyActionPressed : Boolean = false;
@@ -82,6 +83,9 @@ package
 				case P2_KEY_ACTION:
 					_p2KeyActionPressed = true;
 					break;
+				case KEY_RESET:
+					_KeyResetPressed = true;
+					break;
 				default:
 					trace("Unused Key");
 					break;
@@ -127,12 +131,18 @@ package
 				case P2_KEY_ACTION:
 					_p2KeyActionPressed = false;
 					break;
+				case KEY_RESET:
+					_KeyResetPressed = false;
+					break;
 				default:
 					trace("Unused Key");
 					break;
 			}
 		}
 		
+		public static function isPressed_Reset() : Boolean {
+			return _KeyResetPressed;
+		}
 		
 		public static function isPressed_Up(playerID : int) : Boolean {
 			if( playerID == 1 )
