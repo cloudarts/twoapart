@@ -142,6 +142,7 @@ package  {
 			
 			if (!intro.isRunning) {
 				_fog.draw(renderTexture);
+				currentLevel.drawHUD(renderTexture);
 			}
 		}
 	}

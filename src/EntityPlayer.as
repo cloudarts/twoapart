@@ -39,6 +39,8 @@ package
 		
 		private var entityTexName:String;
 		
+		private var isInAir : Boolean = false;
+		
 		public function EntityPlayer( playerID : int ) 
 		{
 			this._playerID = playerID;

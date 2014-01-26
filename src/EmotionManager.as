@@ -88,7 +88,7 @@ package
 
 			if (activeEmotions[1] != Constants.EMOTION_NONE) {
 				var tempMat : Matrix = matP2.clone();
-				tempMat.translate(-Constants.TILE_SIDE_SIZE, -Constants.TILE_SIDE_SIZE);
+				tempMat.translate(-Constants.TILE_SIDE_SIZE, Constants.TILE_SIDE_SIZE);
 				renderTexture.draw(emoticons[activeEmotions[1] - 1], tempMat);
 			}
 			

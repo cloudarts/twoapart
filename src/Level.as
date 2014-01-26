@@ -77,6 +77,9 @@ package  {
 				if (entities[i] instanceof TileWall)
 					entities[i].drawDebug(renderTexture);
 			}
+		}
+		
+		public function drawHUD(renderTexture : RenderTexture) : void {
 			emotionManager.draw(renderTexture);
 		}
 		
