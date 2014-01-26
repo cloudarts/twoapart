@@ -11,10 +11,11 @@ package  {
 	 * @author W. A. Jurczyk
 	 */
 	public class Fog {
-		
+		/**
+		 * change the resolution of the fog texture in respect to screen size
+		 */
 		private const FOG_SCALING:Number = 1.0 / 2.0;
 		
-		private const VIEW_CIRCLE_SCALE:Number = 1.0;
 		
 		private var _fogTexture:RenderTexture;
 		private var _fogImage:Image;
@@ -68,20 +69,22 @@ package  {
 		}
 		
 		private function refreshFog():void {
-			//_fogTexture.clear(0x000000, 1);
+			
 			_fogTexture.draw(_blackQuad);
 			
 			_viewCircleTransMat.identity();			
 			
-			var x:Number = (_pos1.x - _viewCircleTexture.width/2) * FOG_SCALING;
-			var y:Number = (_pos1.y - _viewCircleTexture.height) * FOG_SCALING;
+			var x:Number = (_pos1.x - _viewCircleImage.width/2) * FOG_SCALING;
+			var y:Number = (_pos1.y - _viewCircleImage.height) * FOG_SCALING;
+			x -= 45;
 			_viewCircleTransMat.translate(x, y);
 			_fogTexture.draw(_viewCircleImage, _viewCircleTransMat);
 			
 			_viewCircleTransMat.identity();
 			
-			x = (_pos2.x - _viewCircleTexture.width/2) * FOG_SCALING;
-			y = (_pos2.y - _viewCircleTexture.height) * FOG_SCALING;
+			x = (_pos2.x - _viewCircleImage.width/2) * FOG_SCALING;
+			y = (_pos2.y - _viewCircleImage.height) * FOG_SCALING;
+			x -= 45;
 			_viewCircleTransMat.translate(x, y);
 			_fogTexture.draw(_viewCircleImage, _viewCircleTransMat);		
 			

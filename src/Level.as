@@ -311,9 +311,19 @@ package  {
 							//entities.splice(i, 1);
 						}
 						
+						
 					}
 			}
 			
+			//Collision with WorldBoarder
+			var worldRec:Rectangle = new Rectangle(Constants.PLAYER_BBOX_NORMAL_W, Constants.PLAYER_BBOX_NORMAL_H, width * Constants.TILE_TOP_SIZE - 2*Constants.PLAYER_BBOX_NORMAL_W, 
+				height * Constants.TILE_TOP_SIZE - 2*Constants.PLAYER_BBOX_NORMAL_H);
+			if (!bbPx.intersects(worldRec)) {
+				moveVec.x = 0;
+			}
+			if (!bbPy.intersects(worldRec)) {
+				moveVec.y = 0;
+			}
 			
 			return new Point( player.getPixelPos().x + moveVec.x, player.getPixelPos().y + moveVec.y);
 		}
