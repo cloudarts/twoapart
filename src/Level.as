@@ -1,5 +1,4 @@
 package  {
-	import flash.display3D.textures.RectangleTexture;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import starling.textures.RenderTexture;

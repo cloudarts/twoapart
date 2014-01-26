@@ -39,6 +39,8 @@ package  {
 		
 		private var intro : Intro;
 		
+		private var _fog:Fog;
+		
 		
 		public function Game() {
 			var txt:ByteArray = new LEVEL6() as ByteArray;
@@ -58,6 +60,9 @@ package  {
 
 			//Init KeyboardController
 			KeyboardController.initalize();
+			
+			// init FOG
+			_fog = new Fog();
 
 			
 			//Init intro
@@ -109,6 +114,7 @@ package  {
 					intro.draw(renderTexture);
 				} else {
 					currentLevel.draw(renderTexture);
+					_fog.draw(renderTexture);
 				}
 			});
 		}
