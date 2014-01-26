@@ -69,7 +69,7 @@ package
 		override public function draw(targetTexture:RenderTexture):void 
 		{
 			super.draw(targetTexture);
-			this.drawDebug(targetTexture, 0x0000ff);
+			
 		}
 		
 		override public function update(delta:Number):void 

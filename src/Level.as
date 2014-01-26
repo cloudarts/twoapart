@@ -66,11 +66,7 @@ package  {
 			{
 				entities[j].draw(renderTexture);
 			}
-			for (var i:int = 0; i < entities.length; i++)
-			{
-				if (entities[i] instanceof TileWall)
-					entities[i].drawDebug(renderTexture);
-			}
+			
 			emotionManager.draw(renderTexture);
 		}
 		
