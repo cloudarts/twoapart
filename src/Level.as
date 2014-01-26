@@ -24,7 +24,7 @@ package  {
 		public const ENTITY_ANGRY:String = "angry";
 		public const ENTITY_HAPPY:String = "happy";
 		public const ENTITY_CALM:String = "calm";
-		
+		public const ENTITY_SAD:String = "sad";
 		public const ENTITY_STONE:String = "stone";
 		public const ENTITY_MINE:String = "mine";
 		
@@ -123,12 +123,6 @@ package  {
 						} else if (tiles[i] instanceof TileHole) {
 							//Handle Player death
 							
-						} else if (tiles[i] instanceof TileNarrowHorizontal) {
-							//Handle Player death
-							
-						} else if (tiles[i] instanceof TileNarrowVertical) {
-							//Handle Player death
-							
 						} 
 					}
 				}
@@ -152,10 +146,81 @@ package  {
 								if (entities[i] != player) {
 									//Finish Level
 								}
-						} else {
+						} else if (entities[i] instanceof EntityStone) {
+							if (player.getEmotion() != Constants.EMOTION_ANGRY && player.getEmotion() != Constants.EMOTION_SELFCONFIDENT) {
+								if (hitX) moveVec.x = 0;
+								if (hitY) moveVec.y = 0;
+							} else if (Constants.EMOTION_ANGRY) {
+								entities.splice(i, 1);
+							} else if (Constants.EMOTION_SELFCONFIDENT) {
+								//move block
+							}
+						} else if (entities[i] instanceof EntityMine) {
+							//Die
+						} else if (entities[i] instanceof EntityAngry) {
+							emotionManager.push(Constants.EMOTION_ANGRY);
+						}else if (entities[i] instanceof EntityCalm) {
+							emotionManager.push(Constants.EMOTION_CALM);
+							
+						}else if (entities[i] instanceof EntitySelfConfident) {
+							emotionManager.push(Constants.EMOTION_SELFCONFIDENT);
+							
+						}else if (entities[i] instanceof EntityHappy) {
+							emotionManager.push(Constants.EMOTION_HAPPY);
+							
+						}else if (entities[i] instanceof EntityJittery) {
+							emotionManager.push(Constants.EMOTION_JITTERY);
+							
+						}else if (entities[i] instanceof EntitySad) {
+							emotionManager.push(Constants.EMOTION_SAD);
+							
+						}else if (entities[i] instanceof TileNarrowHorizontal) {
+							//handle different activities
+							if ((player as EntityPlayer).getEmotion() == Constants.EMOTION_SAD) {
+								var bbSm:Rectangle = (entities[i] as TileNarrowHorizontal).getSmallBB();
+								hitX = checkForCollision(bbSm, bbPx);
+								hitY = checkForCollision(bbSm, bbPy);
+								if (hitX) {
+									moveVec.x = 0;
+								}
+								if (hitY) {
+									moveVec.y = 0;
+								}
+							} else {
+								if (hitX) {
+									moveVec.x = 0;
+								}
+								if (hitY) {
+									moveVec.y = 0;
+								}
+							}
+							
+							
+						} else if (entities[i] instanceof TileNarrowVertical) {
+							//Handle Player death
+							if ((player as EntityPlayer).getEmotion() == Constants.EMOTION_SAD) {
+								var bbSm:Rectangle = (entities[i] as TileNarrowVertical).getSmallBB();
+								hitX = checkForCollision(bbSm, bbPx);
+								hitY = checkForCollision(bbSm, bbPy);
+								if (hitX) {
+									moveVec.x = 0;
+								}
+								if (hitY) {
+									moveVec.y = 0;
+								}
+							}else {
+								if (hitX) {
+									moveVec.x = 0;
+								}
+								if (hitY) {
+									moveVec.y = 0;
+								}
+							}
+							
+						} else if (entities[i] instanceof EntityMine){
 							// Push to stack and delete Object
 							//stack.push(entities[i].getEmotion());
-							entities.splice(i, 1);
+							//entities.splice(i, 1);
 						}
 						
 					}
@@ -280,6 +345,10 @@ package  {
 							trace(ERROR_MSG_WRONG_COUNT);
 						}						
 						break;
+					case ENTITY_SAD:
+						if (tokens.length == 3) {
+							entity = new EntitySad();
+						} else trace(ERROR_MSG_WRONG_COUNT);
 					case ENTITY_MINE:
 						if (tokens.length > 4 && (tokens.length % 2 == 1)) {
 							var waypoints:Array = new Array();

@@ -19,7 +19,8 @@ package  {
 	 */
 	public class Game extends Sprite {
 		
-		[Embed(source="../levels/level6.txt",mimeType="application/octet-stream")] public var LEVEL6:Class;
+		[Embed(source = "../levels/level6.txt", mimeType = "application/octet-stream")] public var LEVEL6:Class;
+		[Embed(source="../levels/level4.txt",mimeType="application/octet-stream")] public var LEVEL4:Class;
 		// Embed the Atlas XML
 		[Embed(source="../assets/atlas.xml", mimeType="application/octet-stream")] public static const AtlasXml:Class;
 		// Embed the Atlas Texture:
@@ -40,7 +41,7 @@ package  {
 		
 		
 		public function Game() {
-			var txt:ByteArray = new LEVEL6() as ByteArray;
+			var txt:ByteArray = new LEVEL4() as ByteArray;
 			
 			// create texture atlas
 			var texture : Texture = Texture.fromBitmap(new AtlasTexture());
