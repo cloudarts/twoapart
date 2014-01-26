@@ -141,13 +141,13 @@ package
 			acceleration.x = (right - left) * increaseAccl;
 			acceleration.y = (down - up) * increaseAccl;
 			
-			if ( right == 1 ) {
+			if ( left == 1 ) {
 				if (!isRight) {
 					world.scale( -1 , 1 );
 					isRight = true;
 				}
 			} 
-			if ( left == 1 ) {
+			if ( right == 1 ) {
 				if (isRight) {
 					world.scale( -1 , 1 );
 					isRight = false;
