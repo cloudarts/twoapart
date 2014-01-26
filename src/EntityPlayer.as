@@ -15,7 +15,8 @@ package
 		
 		private var _playerID : int;
 		private var _stateID : int; 
-		private var _directionID : Point; 
+		private var _directionID : int;
+		private var _direction : Point;
 		private var _animationID : int;
 		
 		private var speed : Point;
@@ -28,7 +29,7 @@ package
 		
 		private var texPlayerTag : Array = ["fire_", "water_"];
 		private var texStateTag : Array = ["normal_", "walk_"]
-		private var texDirectionTag : Array = ["front_left", "front_right", "back_left", "back_right"];
+		private var texDirectionTag : Array = ["front_left", "back_left"];
 		private var texAnimation : Array = ["","_01", "_02"];
 		
 		private var entityTexName:String;
@@ -37,7 +38,8 @@ package
 		{
 			this._playerID = playerID;
 			_stateID = 0;
-			_directionID = new Point( -1 , 1 );
+			_directionID = 0;
+			_direction = new Point( - 1, 1);
 			_animationID = 0;
 			
 			updatePlayerTex();
@@ -48,9 +50,9 @@ package
 		
 		private function updatePlayerTex():void 
 		{
-			entityTexName = texPlayerTag[_playerID] + texStateTag[_stateID] 
-				+ texDirectionTag[_directionID.x] + texAnimation[_animationID];
-			
+			entityTexName = "" + texPlayerTag[_playerID] + texStateTag[_stateID] 
+				+ texDirectionTag[_directionID] + texAnimation[_animationID];
+			var i:int = 0;
 			entityImage = new Image( Game.textureAtlas.getTexture(entityTexName) );
 			entityImage.smoothing = TextureSmoothing.NONE;
 		}
@@ -82,12 +84,8 @@ package
 		}
 		
 		private function handleDirection() : void {
-			if ( _directionID.x < 0) {
-				
-			} else {
-				
-			}
 			
+			this.world.scale( _direction.x , _direction.y );
 			//updatePlayerTex();
 		}
 		
@@ -133,15 +131,17 @@ package
 			acceleration.y = (down - up) * increaseAccl;
 			
 			if ( right == 1 ) {
-				_directionID.x = 1;
+				_direction.x = 1;
 			} else {
-				_directionID.x = -1;
+				_direction.x = -1;
 			}
 			
 			if ( down == 1) {
-				_directionID.y = 1;
+				_direction.y = 1;
+				_directionID = 0;
 			} else {
-				_directionID.y = -1;
+				_direction.y = -1;
+				_directionID = 1;
 			}
 			
 			//trace("AXEL" + acceleration);
@@ -188,14 +188,25 @@ package
 			updatePlayerTex();
 		}
 		
-		public function get directionID() : Point 
+		public function get directionID() : int 
 		{
 			return _directionID;
 		}
 		
-		public function set directionID( value : Point ) : void 
+		public function set directionID( value : int ) : void 
 		{
 			_directionID = value;
+			updatePlayerTex();
+		}
+		
+		public function get direction() : Point 
+		{
+			return _direction;
+		}
+		
+		public function set direction( value : Point ) : void 
+		{
+			_direction = value;
 			updatePlayerTex();
 		}
 		
