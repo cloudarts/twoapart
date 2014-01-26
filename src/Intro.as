@@ -11,6 +11,9 @@ package
 	 */
 	public class Intro 
 	{
+		// in seconds
+		private const DURATION_START_FADE_IN : Number = 5; 
+		
 		private var logo : Image;
 		private var logoFire : Image;
 		private var logoWater : Image;
@@ -20,8 +23,11 @@ package
 		private var centerPixelPosLogoWater : Point;
 		private var centerPixelPosStart : Point;
 		private var world : Matrix;
+		private var alpha : Number = 0;
 		
 		public var isRunning : Boolean;
+		
+		private var animTime : Number;
 		
 		
 		public function Intro() {
@@ -43,6 +49,7 @@ package
 			start = new Image( Game.textureAtlas.getTexture("start_button") );
 			centerPixelPosStart = new Point((Constants.SCREEN_WIDTH - start.width)/2, (Constants.SCREEN_HEIGHT - start.height)*4/6);
 			
+			reset();
 		}
 		
 		
@@ -57,7 +64,27 @@ package
 			targetTexture.draw(logo, world);
 			
 			world.createBox(1, 1, 0, centerPixelPosStart.x, centerPixelPosStart.y);			
-			targetTexture.draw(start, world);
+			targetTexture.draw(start, world, alpha);
+			
+		}
+		
+		public function update(delta : Number) : void {
+			animTime += delta;
+			
+			var progress:Number = animTime / DURATION_START_FADE_IN;
+			alpha = progress;
+			
+			alpha += DURATION_START_FADE_IN * delta;
+			if (1 == alpha) {
+				if ( KeyboardController.isPressed_Action(0) || KeyboardController.isPressed_Action(1)) {
+					isRunning = false;
+				}
+			}
+		}
+		
+		private function reset() : void {
+			alpha = 0;
+			animTime = 0;
 		}
 	}
 

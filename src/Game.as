@@ -86,8 +86,12 @@ package  {
 				var deltaMillis:Number = Math.min(Constants.TICK_DURSTION, millisToGoThisFrame);
 				var delta:Number = deltaMillis / 1000.0;
 				
-				// update game logic
-				currentLevel.update(delta);
+				if (intro.isRunning) {
+					intro.update(delta);
+				} else {
+					// update game logic
+					currentLevel.update(delta);
+				}
 				
 				_currentGameTimeMillis += deltaMillis;
 				millisToGoThisFrame -= deltaMillis;
