@@ -102,13 +102,13 @@ package  {
 		
 		public function drawDebug(targetTexture:RenderTexture, color:uint = 0xff0000)
 		{
-			var quad:Quad = new Quad(1, 1, color);
+/*			var quad:Quad = new Quad(1, 1, color);
 			var matScale:Matrix = new Matrix();
 			var matTrans:Matrix = new Matrix();
 			matTrans.translate(boundingBox.x + borderLeft, boundingBox.y + borderTop);
 			matScale.scale(boundingBox.width, boundingBox.height);
 			matScale.concat(matTrans);
-			targetTexture.draw(quad, matScale, 0.4 );
+			targetTexture.draw(quad, matScale, 0.4 );*/
 		}
 		
 		public static function compareValues(a:Entity, b:Entity):int

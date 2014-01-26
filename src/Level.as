@@ -159,13 +159,30 @@ package  {
 					//Check if we collided sth meaningful
 					if (hitX || hitY) {
 						if (tiles[i] instanceof TileCrumble) {
-							var tile : TileCrumble = tiles[i] as TileCrumble;
-							tile.startCrumble();
+							if (player.getEmotion() == Constants.EMOTION_HAPPY && !player.isInAir()) {
+								player.setInAir(true, i);
+							} else if (player.getEmotion() == Constants.EMOTION_HAPPY && i == player.getLastInAirTile()) {
+								
+							} else {
+								var tile : TileCrumble = tiles[i] as TileCrumble;
+								tile.startCrumble();
+							}
 						} else if (tiles[i] instanceof TileHole) {
-							//Handle Player death
-							game.startCurrentLevel();
-							return new Point();
+							if (player.getEmotion() == Constants.EMOTION_HAPPY && !player.isInAir()) {
+								player.setInAir(true, i);
+							} else if (player.getEmotion() == Constants.EMOTION_HAPPY && i == player.getLastInAirTile()) {
+								
+							} else {
+								//Handle Player death
+								game.startCurrentLevel();
+								return new Point();
+							}
 						} 
+						if (!(tiles[i] instanceof TileHole) && !(tiles[i] instanceof TileCrumble)) {
+								player.setInAir(false, -1);
+						}
+					} else {
+						player.setInAir(false, -1);
 					}
 				}
 			}
