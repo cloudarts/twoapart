@@ -95,6 +95,48 @@ package  {
 
 		}
 		
+		public function handleCollisions(player : EntityPlayer , moveVec : Point) : Point {
+			var tempP : Point = moveVec;
+			tempP.y = 0;			
+			var bbPx : Rectangle = player.getBoundingBox(player.getPixelPos() + tempP);
+			
+			tempP = moveVec;
+			tempP.x = 0;
+			var bbPy : Rectangle = player.getBoundingBox(player.getPixelPos() + tempP);
+			
+			//Get all tiles and entities
+			var allTiles : Vector.<Entity> = tiles.concat(entities);
+			
+			for (var i:int = 0; i < allTiles.length; i++) {
+				if (allTiles[i] instanceof TileCrumble || allTiles[i] instanceof TileHole ||
+					allTiles[i] instanceof TileNarrowHorizontal || allTiles[i] instanceof TileNarrowVertical) {
+					
+					var r : Rectangle = allTiles[i].getOwnBoundingBox();
+					var hitX : Boolean = checkForCollision(bbPx, r);
+					var hitY : Boolean = checkForCollision(bbPy, r);
+					
+					//Check if we collided sth meaningful
+					if (hitX || hitY) {
+						if (tiles[i] instanceof TileCrumble) {
+							var tile : TileCrumble = allTiles[i] as TileCrumble;
+							tile.startCrumble();
+						} else if (allTiles[i] instanceof TileHole) {
+							//Handle Player death
+							
+						} else if (allTiles[i] instanceof TileNarrowHorizontal) {
+							//Handle Player death
+							
+						} else if (allTiles[i] instanceof TileNarrowVertical) {
+							//Handle Player death
+							
+						} 
+					}
+				}
+			}
+			
+			return player.getPixelPos() + moveVec;
+		}
+		
 		//Parse the lines of textfile
 		private function parse(lines:Array) : void {
 			this.width = Number(lines[0]);

@@ -17,6 +17,8 @@ package  {
 		public static const TILE_SIDE_SIZE:int = 10;
 		static public const TICK_DURSTION:Number = 16;
 		
+		public static const INIT_CRUMBLE_TIME : Number = 1.0;
+		
 		public function Constants() {
 			
 		}

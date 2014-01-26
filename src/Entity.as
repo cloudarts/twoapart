@@ -32,12 +32,16 @@ package  {
 			
 			centerPixelPos = new Point(0, 0);
 			centerTilePos = new Point(0, 0);
+			
+			boundingBox = new Rectangle(0, 0, Constants.TILE_TOP_SIZE, Constants.TILE_TOP_SIZE);
 		}
 		
 		public function setTile(x : int, y : int) : void {
 			centerTilePos = new Point(x, y);
 			centerPixelPos.x = Constants.TILE_TOP_SIZE * centerTilePos.x;
 			centerPixelPos.y = Constants.TILE_TOP_SIZE * centerTilePos.y;
+			
+			//TODO check this
 			boundingBox = new Rectangle(centerPixelPos.x, centerPixelPos.y,
 												Constants.TILE_TOP_SIZE, Constants.TILE_TOP_SIZE);
 		}
@@ -46,6 +50,10 @@ package  {
 			centerPixelPos = new Point(x, y);
 			centerTilePos.x = x / Constants.TILE_TOP_SIZE;
 			centerTilePos.y = y / Constants.TILE_TOP_SIZE;
+			
+			//TODO check this
+			boundingBox = new Rectangle(centerPixelPos.x, centerPixelPos.y,
+												Constants.TILE_TOP_SIZE, Constants.TILE_TOP_SIZE);
 		}
 		
 		public function getTile() : Point {
@@ -59,6 +67,14 @@ package  {
 		
 		public function update(delta:Number) : void {
 			time += delta;
+		}
+		
+		public function getBoundingBox( pos : Point) : Rectangle {
+			return new Rectangle(pos.x, pos.y, boundingBox.width, boundingBox.height);
+		}
+		
+		public function getOwnBoundingBox() : Rectangle {
+			return boundingBox;
 		}
 		
 		public function draw(targetTexture : RenderTexture) : void {
