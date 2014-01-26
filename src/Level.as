@@ -166,7 +166,7 @@ package  {
 						} else if(entities[i] instanceof EntityPlayer){
 								
 								if (entities[i] != player) {
-									//Finish Level
+									game.startNextLevel();
 								}
 						} else if (entities[i] instanceof EntityStone) {
 							if (player.getEmotion() != Constants.EMOTION_ANGRY && player.getEmotion() != Constants.EMOTION_SELFCONFIDENT) {

@@ -43,6 +43,7 @@ package  {
 		private var _timeLastStepMillis:Number = 0;
 		
 		private var intro : Intro;
+		private var levelComplete : LevelComplete;
 		
 		private var levels : Vector.<ByteArray>  = new Vector.<ByteArray>;
 		private var currentLevelID : int = 0;
@@ -76,13 +77,19 @@ package  {
 			currentLevel = new Level(this);
 			currentLevel.initialize(levels[currentLevelID].toString());
 			
+			// Init level complete animation
+			levelComplete = new LevelComplete(this);
+			
 			_timeLastStepMillis = new Date().getTime();
 			this.addEventListener(EnterFrameEvent.ENTER_FRAME, onEnterFrame);
 		}
 		
 		public function startNextLevel() : void {
 			currentLevelID++;
-			startCurrentLevel();
+			levelComplete.reset();
+			levelComplete.isRunning = true;
+			//startCurrentLevel();
+			
 		}
 		
 		public function startCurrentLevel() : void {
@@ -108,9 +115,11 @@ package  {
 				
 				if (intro.isRunning) {
 					intro.update(delta);
-				} else {
+				} else if (!levelComplete.isRunning) {
 					// update game logic
 					currentLevel.update(delta);
+				} else {
+					levelComplete.update(delta);
 				}
 				
 				_currentGameTimeMillis += deltaMillis;
@@ -128,9 +137,11 @@ package  {
 					intro.draw(renderTexture);
 				} else {
 					currentLevel.draw(renderTexture);
+					if (levelComplete.isRunning) {
+						levelComplete.draw(renderTexture);
+					}
 				}
 			});
 		}
 	}
-
 }
