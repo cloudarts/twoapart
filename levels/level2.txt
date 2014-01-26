@@ -17,7 +17,7 @@
 p1,0,3
 p2,0,9
 
-angry,16,4
+angry,15,4
 
 stone,4,6
 stone,5,6
