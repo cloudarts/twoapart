@@ -26,6 +26,8 @@ package  {
 		protected var centerPixelPos : Point;
 		protected var centerTilePos : Point;
 		
+		protected var offsetScalingX : Number = 0;
+		
 		public function Entity() {
 			world = new Matrix();
 			world.identity();
@@ -62,9 +64,8 @@ package  {
 		}
 		
 		public function draw(targetTexture : RenderTexture) : void {
-			world.createBox(1, 1, 0,
-				centerPixelPos.x + offsetX + borderLeft, 
-				centerPixelPos.y + offsetY + borderTop);
+			world.tx = centerPixelPos.x + offsetX + borderLeft + offsetScalingX;
+			world.ty = centerPixelPos.y + offsetY + borderTop;
 			
 			targetTexture.draw(entityImage, world);
 		}

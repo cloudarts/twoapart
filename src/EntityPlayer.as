@@ -16,7 +16,6 @@ package
 		private var _playerID : int;
 		private var _stateID : int; 
 		private var _directionID : int;
-		private var _direction : Point;
 		private var _animationID : int;
 		
 		private var speed : Point;
@@ -24,6 +23,7 @@ package
 		private var maxSpeed : Number  = 100 ;
 		private var increaseAccl : Number = 500;
 		private var friction : Number = 0.9;
+		private var isRight : Boolean = false;
 		
 		private var animationUpdate : Number = 0;
 		
@@ -39,7 +39,6 @@ package
 			this._playerID = playerID;
 			_stateID = 0;
 			_directionID = 0;
-			_direction = new Point( - 1, 1);
 			_animationID = 0;
 			
 			updatePlayerTex();
@@ -52,7 +51,7 @@ package
 		{
 			entityTexName = "" + texPlayerTag[_playerID] + texStateTag[_stateID] 
 				+ texDirectionTag[_directionID] + texAnimation[_animationID];
-			var i:int = 0;
+			
 			entityImage = new Image( Game.textureAtlas.getTexture(entityTexName) );
 			entityImage.smoothing = TextureSmoothing.NONE;
 		}
@@ -85,7 +84,12 @@ package
 		
 		private function handleDirection() : void {
 			
-			this.world.scale( _direction.x , _direction.y );
+			if (isRight) {
+				offsetScalingX = Constants.CHARACTER_SIZE;
+			} else {
+				offsetScalingX = 0;
+			}
+				
 			//updatePlayerTex();
 		}
 		
@@ -131,16 +135,22 @@ package
 			acceleration.y = (down - up) * increaseAccl;
 			
 			if ( right == 1 ) {
-				_direction.x = 1;
-			} else {
-				_direction.x = -1;
+				if (!isRight) {
+					world.scale( -1 , 1 );
+					isRight = true;
+				}
+			} 
+			if ( left == 1 ) {
+				if (isRight) {
+					world.scale( -1 , 1 );
+					isRight = false;
+				}
 			}
 			
 			if ( down == 1) {
-				_direction.y = 1;
 				_directionID = 0;
-			} else {
-				_direction.y = -1;
+			}
+			if(up == 1) {
 				_directionID = 1;
 			}
 			
@@ -196,17 +206,6 @@ package
 		public function set directionID( value : int ) : void 
 		{
 			_directionID = value;
-			updatePlayerTex();
-		}
-		
-		public function get direction() : Point 
-		{
-			return _direction;
-		}
-		
-		public function set direction( value : Point ) : void 
-		{
-			_direction = value;
 			updatePlayerTex();
 		}
 		

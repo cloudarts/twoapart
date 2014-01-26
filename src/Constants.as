@@ -11,11 +11,13 @@ package  {
 		 * Size of the upper face of the tile (x and y)
 		 */
 		public static const TILE_TOP_SIZE:int = 50;		
+		
+		public static const CHARACTER_SIZE:int = 48;
 		/**
 		 * Size of the side faces of the tile (x and y)
 		 */
 		public static const TILE_SIDE_SIZE:int = 10;
-		static public const TICK_DURSTION:Number = 16;
+		public static const TICK_DURSTION:Number = 16;
 		
 		public function Constants() {
 			
