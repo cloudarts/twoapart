@@ -26,6 +26,8 @@ package
 		private var increaseAccl : Number = 900;
 		private var friction : Number = 0.9;
 		private var isRight : Boolean = false;
+		private var currentSpeedup : Number = 1.0;
+		private var currentMaxSpeedup : Number = 1.0;
 		
 		private var animationUpdate : Number = 0;
 		
@@ -34,7 +36,6 @@ package
 		private var texDirectionTag : Array = ["front", "back"];
 		private var texAnimation : Array = ["", "_01", "_02"];
 		private var texEmotionTag : Array = ["", "_depri", "_ruhig", "_happy", "_hulk", "_selbstsicher"];
-		
 		
 		private var entityTexName:String;
 		
@@ -123,6 +124,32 @@ package
 			}				
 		}
 		
+		override public function getOwnBoundingBox():Rectangle 
+		{
+			if (_emotionID != Constants.EMOTION_SAD) {
+				return super.getOwnBoundingBox();
+			}
+			
+			var smallBB : Rectangle = super.getOwnBoundingBox().clone();
+			
+			smallBB.x += smallBB.width / 4.0;
+			smallBB.width /= 2.0;
+			return smallBB;
+		}
+		
+		override public function getBoundingBox(pos:Point):Rectangle 
+		{
+			if (_emotionID != Constants.EMOTION_SAD) {
+				return super.getBoundingBox(pos);
+			}
+			
+			var smallBB : Rectangle = super.getBoundingBox(pos).clone();
+			
+			smallBB.x += smallBB.width / 4.0;
+			smallBB.width /= 2.0;
+			return smallBB;
+		}
+		
 		private function handleMovement(delta : Number) : void {
 			var down : int = 0;
 			var up : int = 0;
@@ -161,17 +188,17 @@ package
 				_directionID = 1;
 			}
 			
-			speed.x += delta * acceleration.x;
-			speed.y += delta * acceleration.y;
+			speed.x += delta * acceleration.x * currentSpeedup;
+			speed.y += delta * acceleration.y * currentSpeedup;
 			
 			speed.x *= friction;
 			speed.y *= friction;
 			
-			speed.x = Math.min( speed.x, maxSpeed);
-			speed.y = Math.min( speed.y, maxSpeed);
-			speed.x = Math.max( speed.x, -1 * maxSpeed);
-			speed.y = Math.max( speed.y, -1 * maxSpeed);
-						
+			speed.x = Math.min( speed.x, maxSpeed * currentMaxSpeedup);
+			speed.y = Math.min( speed.y, maxSpeed * currentMaxSpeedup);
+			speed.x = Math.max( speed.x, -1 * maxSpeed * currentMaxSpeedup);
+			speed.y = Math.max( speed.y, -1 * maxSpeed * currentMaxSpeedup);
+			
 			var moveVec : Point = new Point(speed.x * delta, speed.y * delta);
 			
 			centerPixelPos = level.handleCollisions(this, moveVec);
@@ -189,10 +216,12 @@ package
 		
 		public function useEmotion( emotion:int ) {
 			
+			currentSpeedup = 1.0;
+			currentMaxSpeedup = 1.0;
+			
 			switch(emotion) {
 				case Constants.EMOTION_NONE:
 					_emotionID = Constants.EMOTION_NONE;
-					maxSpeed = 100;
 					break;
 				case Constants.EMOTION_SAD:
 					_emotionID = Constants.EMOTION_SAD;
@@ -211,6 +240,8 @@ package
 					break;
 				case Constants.EMOTION_JITTERY:
 					_emotionID = Constants.EMOTION_NONE;
+					currentSpeedup = Constants.EMOTION_JITTERY_SPEEDUP;
+					currentMaxSpeedup = Constants.EMOTION_JITTERY_MAXSPEEDUP;
 					break;	
 				default:
 					trace("Error: Can not handle Emotion");

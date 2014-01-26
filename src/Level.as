@@ -79,9 +79,19 @@ package  {
 			for (var i:int = 0; i < tiles.length; i++) {
 				tiles[i].update(delta);
 			}
+			
+			var deltaMineScale : Number = 1.0;
+			if (emotionManager.isCalm() ) {
+				deltaMineScale = 0.125;
+			}
+			
 			//Update entities
 			for (var i:int = 0; i < entities.length; i++) {
-				entities[i].update(delta);
+				if (entities[i] instanceof EntityMine) {
+					entities[i].update(deltaMineScale * delta);
+				} else {
+					entities[i].update(delta);
+				}				
 			}
 			
 			emotionManager.update( delta );
@@ -144,7 +154,8 @@ package  {
 							tile.startCrumble();
 						} else if (tiles[i] instanceof TileHole) {
 							//Handle Player death
-							
+							game.startCurrentLevel();
+							return new Point();
 						} 
 					}
 				}
@@ -167,6 +178,8 @@ package  {
 								
 								if (entities[i] != player) {
 									//Finish Level
+									game.startNextLevel();
+									return new Point();
 								}
 						} else if (entities[i] instanceof EntityStone) {
 							if (player.getEmotion() != Constants.EMOTION_ANGRY && player.getEmotion() != Constants.EMOTION_SELFCONFIDENT) {
@@ -178,14 +191,22 @@ package  {
 								 moveVec = checkBlockCollisions(entities[i].getOwnBoundingBox(), moveVec);
 								 
 								 if (moveVec.length > 0) {
+									
 									var x:Number;
 									var y:Number;
 									x = entities[i].getPixelPos().x + moveVec.x;
 									y = entities[i].getPixelPos().y + moveVec.y;
 									entities[i].setPixelPos(x, y);
 									
-									var tilePt : Point = entities[i].getTile();
+									var vecN : Point = moveVec.clone();
+									vecN.normalize(1);
+									
+									var tilePt : Point = Entity.getTileFromPixel(x + vecN.x, y + vecN.y);
 									var tileId : int = tilePt.y * this.width + tilePt.x;
+									
+/*									var tilePt : Point = entities[i].getTile();
+									var tileId : int = tilePt.y * this.width + tilePt.x;*/
+									
 									if (tiles[tileId] instanceof TileHole) {
 										changeHoleToFloor(tiles[tileId].getTile());
 										entities.splice(i, 1);
@@ -195,6 +216,7 @@ package  {
 							}
 						} else if (entities[i] instanceof EntityMine) {
 							//Restart Level
+							game.startCurrentLevel();
 						} else if (entities[i] instanceof EntityAngry) {
 							emotionManager.push(Constants.EMOTION_ANGRY);
 							entities.splice(i, 1);

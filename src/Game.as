@@ -45,7 +45,7 @@ package  {
 		private var intro : Intro;
 		
 		private var levels : Vector.<ByteArray>  = new Vector.<ByteArray>;
-		private var currentLevelID : int = 0;
+		private var currentLevelID : int = 5;
 		
 		public function Game() {
 			

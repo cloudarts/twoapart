@@ -154,6 +154,10 @@ package
 				
 		}
 		
+		public function isCalm() : Boolean{
+			return (((_players[0] as EntityPlayer).getEmotion() == Constants.EMOTION_CALM) || (( _players[1] as EntityPlayer).getEmotion() == Constants.EMOTION_CALM ));
+		}
+		
 		public function push(emotion:int):void {
 			waiting.push(emotion);
 		}

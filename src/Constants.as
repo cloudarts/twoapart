@@ -40,6 +40,8 @@ package  {
 		public static const EMOTION_JITTERY:int = 6;
 		
 		public static const EMOTION_DURATION:Number = 5;
+		public static const EMOTION_JITTERY_SPEEDUP : Number = 3.5;
+		public static const EMOTION_JITTERY_MAXSPEEDUP : Number = 2.5;
 		
 		static public const GUI_OFFSET_H:int = 170;
 		 
