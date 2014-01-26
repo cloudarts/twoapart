@@ -35,6 +35,7 @@ package  {
 		public static const EMOTION_HAPPY:int = 3;
 		public static const EMOTION_ANGRY:int = 4;
 		public static const EMOTION_SELFCONFIDENT:int = 5;
+		static public const GUI_OFFSET_H:int = 170;
 		 
 		public function Constants() {
 			

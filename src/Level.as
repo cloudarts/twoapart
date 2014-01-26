@@ -7,6 +7,7 @@ package  {
 	 * @author W. A. Jurczyk
 	 */
 	public class Level {
+		private var emotionManager:EmotionManager;
 		
 		public const TILE_STATIC_FLOOR_STRING:String = "-";
 		public const TILE_STATIC_WALL_STRING:String = "#";
@@ -35,8 +36,7 @@ package  {
 		public var width:int 	= -1;
 		public var height:int 	= -1;
 		
-		private var stack:Array = new Array();
-		private var activeEmotion:Entity = null;
+		
 		
 		/**
 		 * one-dimensional tile array
@@ -71,6 +71,7 @@ package  {
 				if (entities[i] instanceof TileWall)
 					entities[i].drawDebug(renderTexture);
 			}
+			emotionManager.draw(renderTexture);
 		}
 		
 		public function update( delta : Number) : void {
@@ -92,6 +93,7 @@ package  {
 			entities = new Vector.<Entity>();
 			var lines:Array = levelStr.split(this.LINE_SEPARATOR); 
 			parse(lines);
+			emotionManager = new EmotionManager();
 			
 			var a:int = 0;
 
