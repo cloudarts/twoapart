@@ -26,7 +26,16 @@ package  {
 		public static const PLAYER_BBOX_PIVOT_X : Number = Constants.TILE_TOP_SIZE / 2;
 		public static const PLAYER_BBOX_PIVOT_Y : Number = Constants.TILE_TOP_SIZE;
 		
-		
+		/**
+		 * Available Emotions 
+		 */
+		public static const EMOTION_NONE:int = 0;
+		public static const EMOTION_SAD:int = 1;
+		public static const EMOTION_CALM:int = 2;
+		public static const EMOTION_HAPPY:int = 3;
+		public static const EMOTION_ANGRY:int = 4;
+		public static const EMOTION_SELFCONFIDENT:int = 5;
+		 
 		public function Constants() {
 			
 		}
