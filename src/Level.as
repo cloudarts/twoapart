@@ -1,5 +1,4 @@
 package  {
-	import flash.display3D.textures.RectangleTexture;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import starling.textures.RenderTexture;
@@ -278,10 +277,28 @@ package  {
 			rectToTestDy.y += moveVec.y;
 			for (var i: int = 0; i < tiles.length; i++)
 			{
-				var r: Rectangle = tiles[i].getOwnBoundingBox();
-				var hitX : Boolean = checkForCollision(rectToTestDx, r);
-				var hitY : Boolean = checkForCollision(rectToTestDy, r);
 				if (!(tiles[i] instanceof TileHole ) && !(tiles[i] instanceof TileFloor ) && !(tiles[i] instanceof TileCrumble) ){
+					var r: Rectangle = tiles[i].getOwnBoundingBox();
+					var hitX : Boolean = checkForCollision(rectToTestDx, r);
+					var hitY : Boolean = checkForCollision(rectToTestDy, r);
+					
+					if (hitX) {
+						moveVec.x = 0;
+					}
+					if (hitY) {
+						moveVec.y = 0;
+					}
+				}
+			}
+			//Check the entities
+			for (var i: int = 0; i < entities.length; i++) {
+				if (/*(entities[i] instanceof EntityPlayer) ||*/ /*(entities[i] instanceof EntityStone) ||*/
+				(entities[i] instanceof TileWall) || (entities[i] instanceof TileNarrowHorizontal) || (entities[i] instanceof TileNarrowVertical)) {
+					
+					var r: Rectangle = entities[i].getOwnBoundingBox();
+					var hitX : Boolean = checkForCollision(rectToTestDx, r);
+					var hitY : Boolean = checkForCollision(rectToTestDy, r);
+					
 					if (hitX) {
 						moveVec.x = 0;
 					}

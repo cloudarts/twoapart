@@ -135,35 +135,35 @@ package
 		
 		
 		public static function isPressed_Up(playerID : int) : Boolean {
-			if( playerID == 0 )
+			if( playerID == 1 )
 				return _p1KeyUpPressed;
 			
 			return _p2KeyUpPressed;
 		}
 		
 		public static function isPressed_Down(playerID : int) : Boolean {
-			if( playerID == 0 )
+			if( playerID == 1 )
 				return _p1KeyDownPressed;
 				
 			return _p2KeyDownPressed;
 		}
 		
 		public static function isPressed_Left(playerID : int) : Boolean {
-			if( playerID == 0 )
+			if( playerID == 1 )
 				return _p1KeyLeftPressed;
 				
 			return _p2KeyLeftPressed;
 		}
 		
 		public static function isPressed_Right(playerID : int) : Boolean {
-			if( playerID == 0 )
+			if( playerID == 1 )
 				return _p1KeyRightPressed;
 			
 			return _p2KeyRightPressed;
 		}
 		
 		public static function isPressed_Action(playerID : int) : Boolean {
-			if( playerID == 0 )
+			if( playerID == 1 )
 				return _p1KeyActionPressed;
 				
 			return _p2KeyActionPressed;
