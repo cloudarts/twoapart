@@ -54,8 +54,8 @@ package  {
 		
 		public function Game() {
 			
-			levels.push(new LEVEL1() as ByteArray, new LEVEL2() as ByteArray, new LEVEL3() as ByteArray,
-				new LEVEL4() as ByteArray, new LEVEL5() as ByteArray, new LEVEL6() as ByteArray);
+			levels.push(new LEVEL1() as ByteArray, new LEVEL2() as ByteArray);//, new LEVEL3() as ByteArray,
+			//	new LEVEL4() as ByteArray, new LEVEL5() as ByteArray, new LEVEL6() as ByteArray);
 			
 			// create texture atlas
 			var texture : Texture = Texture.fromBitmap(new AtlasTexture());
@@ -92,7 +92,11 @@ package  {
 		}
 		
 		public function startNextLevel() : void {
-			currentLevelID++;
+			if(currentLevelID < levels.length-1){
+				currentLevelID++;
+			} else {
+				currentLevelID = 0;
+			}
 			levelComplete.reset();
 			levelComplete.isRunning = true;
 			//startCurrentLevel();
@@ -134,9 +138,7 @@ package  {
 					//If reset key is pressed restart current level
 					if (KeyboardController.isPressed_Reset() && !restartIsPressed) {
 						restartIsPressed = true;
-					}
-			
-					if (!KeyboardController.isPressed_Reset() && restartIsPressed) {
+					} else if (!KeyboardController.isPressed_Reset() && restartIsPressed) {
 						restartIsPressed = false;
 						startCurrentLevel();
 					}
