@@ -51,7 +51,7 @@ package
 			matStartWaitP1.identity();
 			matStartWaitP2.identity();
 			matStartWaitP1.translate(Constants.TILE_TOP_SIZE, Constants.TILE_TOP_SIZE + Constants.TILE_SIDE_SIZE);
-			matStartWaitP2.translate(150 + Constants.TILE_TOP_SIZE, Constants.TILE_TOP_SIZE + Constants.TILE_SIDE_SIZE);
+			matStartWaitP2.translate(125 + Constants.TILE_TOP_SIZE, Constants.TILE_TOP_SIZE + Constants.TILE_SIDE_SIZE);
 			
 			
 			for (var i:int = 0; i < texEmotionNames.length; i++) {		
@@ -88,13 +88,13 @@ package
 
 			if (activeEmotions[1] != Constants.EMOTION_NONE) {
 				var tempMat : Matrix = matP2.clone();
-				tempMat.translate(-Constants.TILE_SIDE_SIZE, Constants.TILE_SIDE_SIZE);
+				tempMat.translate( Constants.TILE_SIDE_SIZE*21, Constants.TILE_SIDE_SIZE); //correct the position of active emotion
 				renderTexture.draw(emoticons[activeEmotions[1] - 1], tempMat);
 			}
 			
 			matP1.concat(matStartWaitP1);
 			matP2.concat(matStartWaitP2);
-			for (var i : int; i < waiting.length; i++) {
+			for (var i : int = 0; i < waiting.length; i++) {
 				renderTexture.draw(emoticons[waiting[i] - 1], matP1);
 				renderTexture.draw(emoticons[waiting[i] - 1], matP2);
 				matP1.concat(matDeltaP1);
