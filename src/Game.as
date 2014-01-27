@@ -130,6 +130,16 @@ package  {
 					if( currentLevel.p1 && currentLevel.p2 ) {
 						_fog.setVisibleAreas( currentLevel.p1.getPivotPoint(), currentLevel.p2.getPivotPoint() );
 					}
+					
+					//If reset key is pressed restart current level
+					if (KeyboardController.isPressed_Reset() && !restartIsPressed) {
+						restartIsPressed = true;
+					}
+			
+					if (!KeyboardController.isPressed_Reset() && restartIsPressed) {
+						restartIsPressed = false;
+						startCurrentLevel();
+					}
 
 				} else {
 					levelComplete.update(delta);
@@ -141,16 +151,6 @@ package  {
 			}
 			
 			_timeLastStepMillis = nowMillis;
-			
-			//If reset key is pressed restart current level
-			if (KeyboardController.isPressed_Reset() && !restartIsPressed) {
-				restartIsPressed = true;
-			}
-			
-			if (!KeyboardController.isPressed_Reset() && restartIsPressed) {
-				restartIsPressed = false;
-				startCurrentLevel();
-			}
 			
 		}
 		
