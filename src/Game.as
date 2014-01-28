@@ -54,8 +54,8 @@ package  {
 		
 		public function Game() {
 			
-			levels.push(new LEVEL1() as ByteArray, new LEVEL2() as ByteArray);//, new LEVEL3() as ByteArray,
-			//	new LEVEL4() as ByteArray, new LEVEL5() as ByteArray, new LEVEL6() as ByteArray);
+			levels.push(new LEVEL1() as ByteArray, new LEVEL2() as ByteArray, new LEVEL3() as ByteArray,
+				new LEVEL4() as ByteArray, new LEVEL5() as ByteArray, new LEVEL6() as ByteArray);
 			
 			// create texture atlas
 			var texture : Texture = Texture.fromBitmap(new AtlasTexture());
