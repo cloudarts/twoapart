@@ -9,8 +9,11 @@ package
 	 */
 	public class KeyboardController 
 	{
-	
-		public static const KEY_RESET: uint 		= Keyboard.BACKSPACE;
+		/**
+		 * Defines the Keyboard Key to Restart a Level
+		 */
+		public static const KEY_RESET: uint 	= Keyboard.BACKSPACE;
+		
 		/**
 		 * Keyboard controlls player 1 
 		 */
@@ -33,10 +36,18 @@ package
 		private static var _KeyResetPressed: Boolean = false;
 		
 		//Variable defines status of Player 1 keys
-		private static var _p1KeyUpPressed, _p1KeyDownPressed, _p1KeyLeftPressed, _p1KeyRightPressed, _p1KeyActionPressed : Boolean = false;
+		private static var _p1KeyUpPressed : Boolean 		= false;
+		private static var _p1KeyDownPressed : Boolean 		= false;
+		private static var _p1KeyLeftPressed : Boolean 		= false;
+		private static var _p1KeyRightPressed : Boolean 	= false;
+		private static var _p1KeyActionPressed : Boolean 	= false;
 		
 		//Variable defines status of Player 2 keys
-		private static var _p2KeyUpPressed, _p2KeyDownPressed, _p2KeyLeftPressed, _p2KeyRightPressed, _p2KeyActionPressed : Boolean = false;
+		private static var _p2KeyUpPressed : Boolean 		= false;
+		private static var _p2KeyDownPressed : Boolean 		= false;
+		private static var _p2KeyLeftPressed : Boolean		= false;
+		private static var _p2KeyRightPressed : Boolean 	= false;
+		private static var _p2KeyActionPressed : Boolean 	= false;
 		
 		public function KeyboardController() 
 		{

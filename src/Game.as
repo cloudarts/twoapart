@@ -92,7 +92,11 @@ package  {
 		}
 		
 		public function startNextLevel() : void {
-			currentLevelID++;
+			if(currentLevelID < levels.length-1){
+				currentLevelID++;
+			} else {
+				currentLevelID = 0;
+			}
 			levelComplete.reset();
 			levelComplete.isRunning = true;
 			//startCurrentLevel();
@@ -134,9 +138,7 @@ package  {
 					//If reset key is pressed restart current level
 					if (KeyboardController.isPressed_Reset() && !restartIsPressed) {
 						restartIsPressed = true;
-					}
-			
-					if (!KeyboardController.isPressed_Reset() && restartIsPressed) {
+					} else if (!KeyboardController.isPressed_Reset() && restartIsPressed) {
 						restartIsPressed = false;
 						startCurrentLevel();
 					}
