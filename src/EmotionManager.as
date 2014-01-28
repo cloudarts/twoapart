@@ -46,7 +46,7 @@ package
 			matStartP1.identity();
 			matStartP2.identity();
 			matStartP1.translate( -0.49 * Constants.SCREEN_WIDTH, 0);
-			matStartP2.translate( 0.20 * Constants.SCREEN_WIDTH, 0);
+			matStartP2.translate( 0.28 * Constants.SCREEN_WIDTH, 0);
 			
 			matStartWaitP1.identity();
 			matStartWaitP2.identity();
